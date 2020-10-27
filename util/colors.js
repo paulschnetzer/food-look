@@ -1,0 +1,1 @@
+export const colors={darkorange:"#960100", lightorange:"#FF9E4D", orange:"#E65100", almostwhite:"#fafcff", almostblack:"#171717", }
