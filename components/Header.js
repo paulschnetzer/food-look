@@ -64,8 +64,6 @@ const navbar = css `
 export default function Header() {
   return (
     <header css={header}>
-
-
       <div css={navbar} >
       <Link href="/">
         <a className="animation">

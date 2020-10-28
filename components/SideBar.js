@@ -112,40 +112,27 @@ let number=0
 export default function Sidebar() {
   const [newUserIng, setNewUserIng] =useState("");
   const [userIngArray, setUserIngArray]=useState([])
-
-
-
   function handleSubmit(e){
     e.preventDefault()
     const ingExists = userIngArray.some((item) => item.name === newUserIng);
     if(!ingExists){
       setUserIngArray([...userIngArray, {name:newUserIng, id: number++}]);
       setNewUserIng("")
-
     }
-
     }
     console.log(userIngArray)
-
-
-
   return (
    <div css={sidebar}>
      <img src="logo.svg" alt="Logo"/>
      <div className="positionfixed">
-
      <form onSubmit={handleSubmit}>
-
         <input type="text" placeholder="Add an ingredient" value={newUserIng} onChange={(e) => setNewUserIng(e.target.value) }required/>
-
         <input type="submit" value="ADD" />
       </form>
-
       <div className="renderItems">
          <RenderIng userIngArray={userIngArray} setUserIngArray={setUserIngArray}/>
       </div>
       </div>
-
    </div>
   );
 }
