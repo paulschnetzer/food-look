@@ -11,7 +11,8 @@ export default function Layout(props) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Sidebar />
+      <Sidebar userIngArray={props.userIngArray} setUserIngArray={props.setUserIngArray} />
+
 
       <Header />
       <main>{props.children}</main>

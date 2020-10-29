@@ -1,93 +1,42 @@
-
-export const coffeeTypes = [
+export const foodDataBase = [
   {
     id: '1',
-    name: 'Apfel',
-    price: 3.5,
-    image: 'https://picsum.photos/200',
+    name: 'Chilli con Carne',
+    ing: ['minced-meat', 'beans', 'onion', 'canned tomatos'],
+    spices: ['chilli', 'cumin', 'smoked paprika', 'garlic', 'marjoram'],
+    basics: ['water', 'salt', 'pepper', 'oil'],
+    image:
+      'https://cdn.pixabay.com/photo/2014/06/28/14/14/chili-con-carne-378952_1280.jpg',
+    link: 'https://www.food24.com/recipe/cheats-5-ingredient-chilli-con-carne/',
   },
   {
     id: '2',
-    name: 'Birne',
-    price: 2.9,
-    image: 'https://picsum.photos/200',
+    name: 'Sweet Potato Curry',
+    ing: ['onion', 'curry-paste', 'coconut-milk', 'sweet potato'],
+    spices: ['lime', 'ginger', 'garlic'],
+    basics: ['water', 'salt', 'pepper', 'oil'],
+    image:
+      'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=631&q=80',
+    link: 'https://www.eatingbirdfood.com/5-ingredient-sweet-potato-curry/',
   },
   {
     id: '3',
-    name: 'Banane',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
+    name: 'Carbonara',
+    ing: ['bacon', 'parmesan', 'egg', 'pasta'],
+    spices: [undefined],
+    basics: ['water', 'salt', 'pepper', 'oil'],
+    image:
+      'https://images.unsplash.com/photo-1588013273468-315fd88ea34c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+    link: 'https://www.bonappetit.com/recipe/simple-carbonara',
   },
   {
     id: '4',
-    name: 'Mehl',
-    price: 3.2,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '5',
-    name: "Kirsche",
-    price: 3.1,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '6',
-    name: 'Guatemala Nango',
-    price: 4.5,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '7',
-    name: 'Columbia Castillo',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '8',
-    name: 'Columbia Castillo',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '9',
-    name: 'Columbia Castillo',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '10',
-    name: 'Columbia Castillo',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '11',
-    name: 'Columbia Castillo',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '12',
-    name: 'Columbia Castillo',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '13',
-    name: 'Columbia Castillo',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '14',
-    name: 'Columbia Castillo',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
-  },
-  {
-    id: '15',
-    name: 'Columbia Castillo',
-    price: 3.8,
-    image: 'https://picsum.photos/200',
+    name: 'Shakshuka',
+    ing: ['onion', 'egg', 'canned tomatos'],
+    spices: ['garlic', 'cumin', 'chilli'],
+    basics: ['salt', 'pepper', 'oil'],
+    image:
+      'https://images.unsplash.com/photo-1590412200988-a436970781fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80',
+    link: 'https://toriavey.com/toris-kitchen/shakshuka/',
   },
 ];
