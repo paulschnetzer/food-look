@@ -7,7 +7,7 @@ import { colors } from '../util/colors';
 
 const container1 = css`
   display: grid;
-  grid-template-columns: 25% 5% 30%;
+  grid-template-columns: 35% 5% 40%;
   grid-template-rows: 25% 5% 60% 5% 1fr;
   margin-bottom: 190px;
 
@@ -32,6 +32,7 @@ const container1 = css`
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 55;
+    border-radius: 20px;
   }
   .textbox {
     grid-column: 2 / 4;
@@ -40,7 +41,8 @@ const container1 = css`
     background-color: #fff1bf;
     background-color: #f68920;
     color: ${colors.almostwhite};
-    padding: 5% 5% 15% 20%;
+    padding: 5% 5% 5% 20%;
+    border-radius: 20px;
     h2:first-child {
       display: inline;
       font-size: 100%;
@@ -96,6 +98,17 @@ const opacitiy = css`
   font-size: 130%;
 `;
 
+function Spices(props) {
+  return (
+    <div>
+      <p>
+        If we are honest with our selfs this recipe only need{' '}
+        <b>{props.food.ing.length}</b> real ingredients:
+      </p>
+    </div>
+  );
+}
+
 export default function ProductPage(props) {
   const food = foodDataBase.find((currentRecipe) => {
     if (currentRecipe.id === props.id) {
@@ -119,10 +132,8 @@ export default function ProductPage(props) {
             <br />
             <h2> {food.name}</h2>
           </h2>
-          <p>
-            If we are honest with our selfs this recipe only need{' '}
-            <b>{food.ing.length}</b> real ingredients:
-          </p>
+          {food.spices.length !== 0 ? <Spices food={food} /> : null}
+
           <ol css={opacitiy}>
             {food.ing.map((ing) => {
               return <li>{ing}</li>;
