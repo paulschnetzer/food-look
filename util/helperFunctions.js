@@ -4,14 +4,6 @@ export function findMatchingObjectBasedOnName(arrayOne, arrayTwo) {
   );
 }
 
-// export function findMatchingObjectBasedOnIng(arrayOne, arrayTwo) {
-//   return arrayOne.filter((item1) =>
-//     arrayTwo.find((item2) =>
-//       item1.ing.some((subitem) => subitem === item2.ing),
-//     ),
-//   );
-// }
-
 export function transformTheIngArray(actualarray) {
   return actualarray.map((item1) => item1.ing);
 }

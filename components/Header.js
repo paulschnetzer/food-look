@@ -29,7 +29,7 @@ const navbar = css`
     transition: 0.4s;
     margin: 4px 0 0 4vw;
     :hover {
-      border-bottom: 2px solid ${colors.almostwhite};
+      border-bottom: 2px solid ${colors.almostblack};
       padding-bottom: 4px;
     }
   }

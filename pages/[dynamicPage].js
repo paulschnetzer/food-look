@@ -64,7 +64,7 @@ const container1 = css`
     }
     p {
       opacity: 80%;
-      font-size: 80%;
+      font-size: 90%;
     }
     ol {
       padding: 10px 0;
@@ -102,8 +102,10 @@ function Spices(props) {
   return (
     <div>
       <p>
-        If we are honest with our selfs this recipe only need{' '}
-        <b>{props.food.ing.length}</b> real ingredients:
+        <p>
+          Sure if you have {props.food.spices.join(', ')} laying around this
+          would add some more flavor to it but its not essetial.
+        </p>
       </p>
     </div>
   );
@@ -132,17 +134,17 @@ export default function ProductPage(props) {
             <br />
             <h2> {food.name}</h2>
           </h2>
-          {food.spices.length !== 0 ? <Spices food={food} /> : null}
 
+          <p>
+            If we are honest with our selfs this recipe only need{' '}
+            <b>{food.ing.length}</b> real ingredients:
+          </p>
           <ol css={opacitiy}>
             {food.ing.map((ing) => {
               return <li>{ing}</li>;
             })}
           </ol>
-          <p>
-            Sure if you have {food.spices.join(', ')} laying around this would
-            add some more flavor to it but its not essetial.
-          </p>
+          {food.spices.length !== 0 ? <Spices food={food} /> : null}
 
           <p>
             You can use this{' '}
