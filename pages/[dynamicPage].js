@@ -1,7 +1,7 @@
 import Header from '../components/Header';
 import Link from 'next/link';
 import React from 'react';
-import { foodDataBase } from '../util/foodDataBase';
+//import { foodDataBase } from '../util/foodDataBase';
 import { css } from '@emotion/core';
 import { colors } from '../util/colors';
 

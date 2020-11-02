@@ -1,5 +1,4 @@
 import { css } from '@emotion/core';
-import { foodDataBase } from '../util/foodDataBase';
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import RenderAPI from '../components/RenderAPI';
@@ -25,12 +24,12 @@ const grid = css`
   }
 `;
 
-export default function Home() {
+export default function Home(props) {
   const [userIngArray, setUserIngArray] = useState([]);
-  const simlifiiedArray = transformTheIngArray(userIngArray);
+  const simlifiedArray = transformTheIngArray(userIngArray);
   const matchingIngObj = findMatchingObjectBasedOnIng(
-    foodDataBase,
-    simlifiiedArray,
+    props.foodDataBase,
+    simlifiedArray,
   );
   console.log(matchingIngObj);
   return (
@@ -41,4 +40,15 @@ export default function Home() {
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const { getRecipes } = await import('../util/foodDataBase');
+  const foodDataBase = await getRecipes();
+
+  return {
+    props: {
+      foodDataBase: foodDataBase,
+    },
+  };
 }
