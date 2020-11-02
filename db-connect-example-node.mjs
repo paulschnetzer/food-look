@@ -22,19 +22,30 @@ WHERE
   ingredient_types.name = 'main' AND
   recipes_ingredients_types.ingredient_type_id = ingredient_types.id AND
   recipes_ingredients_types.recipe_id = recipes.id AND
-  recipes_ingredients_types.ingredient_id = ingredients.id;
+  recipes_ingredients_types.ingredient_id = ingredients.id
+  ;
 `;
 
-// let transformedArray = food.filter((x) => x.recipe_id === 1);
-let realArray = null;
-let transformedArray = food.map((x) => x.recipe_id);
-
-function findMatchingObjectBasedOnIng(arrayOne, arrayTwo) {
-  return arrayOne.filter((item1) =>
-    arrayTwo.every((item2) => item1.ing.includes(item2)),
+let formatedRecipes = food.reduce((reducedFoodArray, recipeIng) => {
+  let matchingRecipe = reducedFoodArray.find(
+    (ing) => ing.name === recipeIng.recipe_name,
   );
-}
+  if (!matchingRecipe) {
+    // delete recipeIng.ingredient_id;
+    // recipeIng.ingredient_name=[recipeIng.ingredient_name]
+    reducedFoodArray.push({
+      id: recipeIng.recipe_id,
+      name: recipeIng.recipe_name,
+      img: recipeIng.recipe_img,
+      link: recipeIng.recipe_link,
+      ingredients: [recipeIng.ingredient_name],
+    });
+  } else {
+    matchingRecipe.ingredients.push(recipeIng.ingredient_name);
+  }
+  return reducedFoodArray;
+}, []);
 
-console.log(transformedArray);
+console.log(food);
 
 sql.end();

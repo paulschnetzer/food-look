@@ -1,4 +1,13 @@
-// SELECT
+// import postgres from 'postgres';
+// import dotenv from 'dotenv';
+
+// dotenv.config();
+
+// const sql = postgres();
+
+// export async function getRecipes() {
+//   const recipes = await sql`
+//   SELECT
 //   recipes.id as recipe_id,
 //   recipes.name as recipe_name,
 //   recipes.img as recipe_img,
@@ -14,8 +23,28 @@
 //   ingredient_types.name = 'main' AND
 //   recipes_ingredients_types.ingredient_type_id = ingredient_types.id AND
 //   recipes_ingredients_types.recipe_id = recipes.id AND
-//   recipes_ingredients_types.ingredient_id = ingredients.id;
+//   recipes_ingredients_types.ingredient_id = ingredients.id
+//   ;
+//     `;
 
+//   return recipes.reduce((reducedFoodArray, recipeIng) => {
+//     const matchingRecipe = reducedFoodArray.find(
+//       (ing) => ing.name === recipeIng.recipe_name,
+//     );
+//     if (!matchingRecipe) {
+//       reducedFoodArray.push({
+//         id: recipeIng.recipe_id,
+//         name: recipeIng.recipe_name,
+//         img: recipeIng.recipe_img,
+//         link: recipeIng.recipe_link,
+//         ingredients: [recipeIng.ingredient_name],
+//       });
+//     } else {
+//       matchingRecipe.ingredients.push(recipeIng.ingredient_name);
+//     }
+//     return reducedFoodArray;
+//   }, []);
+// }
 export const foodDataBase = [
   {
     id: '1',
