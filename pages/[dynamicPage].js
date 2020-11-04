@@ -1,7 +1,6 @@
 import Header from '../components/Header';
 import Link from 'next/link';
 import React from 'react';
-//import { foodDataBase } from '../util/foodDataBase';
 import { css } from '@emotion/core';
 import { colors } from '../util/colors';
 
@@ -112,8 +111,8 @@ function Spices(props) {
 }
 
 export default function ProductPage(props) {
-  const food = foodDataBase.find((currentRecipe) => {
-    if (currentRecipe.id === props.id) {
+  const food = props.foodDataBase.find((currentRecipe) => {
+    if (currentRecipe.id.toString() === props.id) {
       return true;
     }
     return false;
@@ -124,7 +123,7 @@ export default function ProductPage(props) {
       <div css={container1}>
         <div
           style={{
-            backgroundImage: 'url(' + food.image + ')',
+            backgroundImage: 'url(' + food.img + ')',
           }}
           className="picture"
         />
@@ -137,10 +136,10 @@ export default function ProductPage(props) {
 
           <p>
             If we are honest with our selfs this recipe only need{' '}
-            <b>{food.ing.length}</b> real ingredients:
+            <b>{food.ingredients.length}</b> real ingredients:
           </p>
           <ol css={opacitiy}>
-            {food.ing.map((ing) => {
+            {food.ingredients.map((ing) => {
               return <li>{ing}</li>;
             })}
           </ol>
@@ -153,8 +152,8 @@ export default function ProductPage(props) {
                 <a>recepy</a>
               </Link>
             }{' '}
-            as giadance but reber, only {food.ing.length} ingredients are really
-            neccercary &#128521;{' '}
+            as giadance but reber, only {food.ingredients.length} ingredients
+            are really neccercary &#128521;{' '}
           </p>
         </div>
         <h1>{food.name}</h1>
@@ -163,8 +162,12 @@ export default function ProductPage(props) {
   );
 }
 
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
+  const { getRecipesForProductPage } = await import(
+    '../util/DataBaseProductPageQuery'
+  );
+  const foodDataBase = await getRecipesForProductPage();
   return {
-    props: { id: context.query.dynamicPage },
+    props: { id: context.query.dynamicPage, foodDataBase: foodDataBase },
   };
 }

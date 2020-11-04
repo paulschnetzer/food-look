@@ -12,40 +12,52 @@ const food = await sql`
   recipes.img as recipe_img,
   recipes.link as recipe_link,
   ingredients.id as ingredient_id,
-  ingredients.name as ingredient_name
+  ingredients.name as ingredient_name,
+  ingredient_types.id as ingredients_types_id
 FROM
   recipes,
   ingredients,
   ingredient_types,
   recipes_ingredients_types
+
 WHERE
-  ingredient_types.name = 'main' AND
+(ingredient_types.name = 'spices' OR ingredient_types.name = 'main') AND
   recipes_ingredients_types.ingredient_type_id = ingredient_types.id AND
   recipes_ingredients_types.recipe_id = recipes.id AND
   recipes_ingredients_types.ingredient_id = ingredients.id
   ;
 `;
 
-let formatedRecipes = food.reduce((reducedFoodArray, recipeIng) => {
+let x = food.reduce((reducedFoodArray, recipeIng) => {
   let matchingRecipe = reducedFoodArray.find(
     (ing) => ing.name === recipeIng.recipe_name,
   );
-  if (!matchingRecipe) {
-    // delete recipeIng.ingredient_id;
-    // recipeIng.ingredient_name=[recipeIng.ingredient_name]
+  if (!matchingRecipe && recipeIng.ingredients_types_id === 1) {
     reducedFoodArray.push({
       id: recipeIng.recipe_id,
       name: recipeIng.recipe_name,
       img: recipeIng.recipe_img,
       link: recipeIng.recipe_link,
       ingredients: [recipeIng.ingredient_name],
+      spices: [],
     });
-  } else {
+  } else if (!matchingRecipe && recipeIng.ingredients_types_id === 2) {
+    reducedFoodArray.push({
+      id: recipeIng.recipe_id,
+      name: recipeIng.recipe_name,
+      img: recipeIng.recipe_img,
+      link: recipeIng.recipe_link,
+      ingredients: [],
+      spices: [recipeIng.ingredient_name],
+    });
+  } else if (matchingRecipe && recipeIng.ingredients_types_id === 1) {
     matchingRecipe.ingredients.push(recipeIng.ingredient_name);
+  } else if (matchingRecipe && recipeIng.ingredients_types_id === 2) {
+    matchingRecipe.spices.push(recipeIng.ingredient_name);
   }
   return reducedFoodArray;
 }, []);
 
-console.log(food);
+console.log(x);
 
 sql.end();

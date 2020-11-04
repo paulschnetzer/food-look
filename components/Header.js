@@ -70,7 +70,7 @@ export default function Header() {
             <p>CONTACT</p>
           </a>
         </Link>
-        <Link href="/">
+        <Link href="/register">
           <a className="nope">
             <div className="login">
               <p>LOGIN</p>

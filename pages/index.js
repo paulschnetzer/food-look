@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
-import RenderAPI from '../components/RenderAPI';
+import RenderRecipes from '../components/RenderRecipes';
 import { colors } from '../util/colors';
 import {
   findMatchingObjectBasedOnIng,
@@ -31,20 +31,21 @@ export default function Home(props) {
     props.foodDataBase,
     simlifiedArray,
   );
-  console.log(matchingIngObj);
   return (
     <Layout userIngArray={userIngArray} setUserIngArray={setUserIngArray}>
       <div css={grid}>
-        <RenderAPI matchingIngObj={matchingIngObj} />
-        {console.log(matchingIngObj)}
+        <RenderRecipes
+          matchingIngObj={matchingIngObj}
+          simlifiedArray={simlifiedArray}
+        />
       </div>
     </Layout>
   );
 }
 
 export async function getServerSideProps() {
-  const { getRecipes } = await import('../util/foodDataBase');
-  const foodDataBase = await getRecipes();
+  const { getRecipesForIndex } = await import('../util/DataBaseIndexQuery');
+  const foodDataBase = await getRecipesForIndex();
 
   return {
     props: {

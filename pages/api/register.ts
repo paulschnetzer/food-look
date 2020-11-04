@@ -1,0 +1,42 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+import argon2 from 'argon2'
+import Tokens from 'csrf'
+import { registerUser, getUserByUsername} from '../../util/DataBaseUser';
+
+const tokens = new Tokens();
+
+export default async function handler(
+  request: NextApiRequest,
+  response: NextApiResponse,
+) {
+  const { username, password, token } = request.body;
+
+  const secret = process.env.CSRF_TOKEN_SECRET;
+
+  if (typeof secret === 'undefined') {
+    response.status(500).send({ success: false });
+    throw new Error('CSRF_TOKEN_SECRET environment variable not configured!');
+  }
+  const verified = tokens.verify(secret, token);
+
+  if (!verified) {
+    return response.status(401).send({ success: false });
+  }
+
+  const usernameAlreadyTaken =
+    typeof (await getUserByUsername(username)) !== 'undefined';
+
+
+    if (usernameAlreadyTaken) {
+
+      return response.status(409).send({ success: false });
+    }
+    try {
+      const passwordHash = await argon2.hash(password);
+      await registerUser(username, passwordHash);
+    } catch (err) {
+      return response.status(500).send({ success: false });
+    }
+    response.send({ success: true });
+
+}
