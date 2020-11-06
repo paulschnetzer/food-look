@@ -3,6 +3,8 @@ import Link from 'next/link';
 import React from 'react';
 import { css } from '@emotion/core';
 import { colors } from '../util/colors';
+import nextCookies from 'next-cookies';
+import { isSessionTokenValid } from '../util/auth';
 
 const container1 = css`
   display: grid;
@@ -119,7 +121,7 @@ export default function ProductPage(props) {
   });
   return (
     <>
-      <Header />{' '}
+      <Header loggedIn={props.loggedIn} />{' '}
       <div css={container1}>
         <div
           style={{
@@ -166,8 +168,14 @@ export async function getServerSideProps(context) {
   const { getRecipesForProductPage } = await import(
     '../util/DataBaseProductPageQuery'
   );
+  const { session: token } = nextCookies(context);
+  const loggedIn = await isSessionTokenValid(token);
   const foodDataBase = await getRecipesForProductPage();
   return {
-    props: { id: context.query.dynamicPage, foodDataBase: foodDataBase },
+    props: {
+      id: context.query.dynamicPage,
+      foodDataBase: foodDataBase,
+      loggedIn: loggedIn,
+    },
   };
 }

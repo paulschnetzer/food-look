@@ -2,7 +2,10 @@ import { css } from '@emotion/core';
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import RenderRecipes from '../components/RenderRecipes';
+import nextCookies from 'next-cookies';
 import { colors } from '../util/colors';
+import { isSessionTokenValid } from '../util/auth';
+import { getUserBySessionToken } from '../util/DataBaseUser';
 import {
   findMatchingObjectBasedOnIng,
   transformTheIngArray,
@@ -32,7 +35,12 @@ export default function Home(props) {
     simlifiedArray,
   );
   return (
-    <Layout userIngArray={userIngArray} setUserIngArray={setUserIngArray}>
+    <Layout
+      userIngArray={userIngArray}
+      setUserIngArray={setUserIngArray}
+      loggedIn={props.loggedIn}
+      admin={props.admin}
+    >
       <div css={grid}>
         <RenderRecipes
           matchingIngObj={matchingIngObj}
@@ -43,13 +51,23 @@ export default function Home(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const { getRecipesForIndex } = await import('../util/DataBaseIndexQuery');
   const foodDataBase = await getRecipesForIndex();
-
+  const { session: token } = nextCookies(context);
+  let admin = await getUserBySessionToken(token);
+  const loggedIn = await isSessionTokenValid(token);
+  if (admin === undefined || admin.userRoleId !== 1) {
+    admin = false;
+  } else {
+    admin = true;
+  }
+  console.log(admin);
   return {
     props: {
       foodDataBase: foodDataBase,
+      loggedIn: loggedIn,
+      admin: admin,
     },
   };
 }

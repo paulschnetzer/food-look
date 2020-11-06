@@ -1,6 +1,7 @@
 import { colors } from '../util/colors';
 import { css } from '@emotion/core';
 import Link from 'next/link';
+import Popup from 'reactjs-popup';
 
 const header = css`
   display: flex;
@@ -10,7 +11,7 @@ const header = css`
   width: 100%;
   background-color: ${colors.almostwhite};
   color: ${colors.almostblack};
-  padding: 0 10% 0 0;
+  padding: 0 5% 0 0;
   p {
     margin: 0;
     font-size: 90%;
@@ -20,7 +21,7 @@ const header = css`
 
 const navbar = css`
   display: flex;
-  width: 45%;
+  width: 100%;
   justify-content: flex-end;
   align-items: center;
   .animation {
@@ -32,6 +33,14 @@ const navbar = css`
       border-bottom: 2px solid ${colors.almostblack};
       padding-bottom: 4px;
     }
+  }
+  .noanimation {
+    border-bottom: 2px solid ${colors.almostwhite};
+    padding-bottom: 4px;
+    transition: 0.4s;
+    margin: 4px 0 0 4vw;
+    color: grey;
+    cursor: default;
   }
   .login {
     display: flex;
@@ -55,8 +64,60 @@ const navbar = css`
     }
   }
 `;
+function LinkLogin(props) {
+  return (
+    <div>
+      <Link href={`${props.redirectPage}`}>
+        <a>
+          <div className="login">
+            <p>{props.loginstatus}</p>
 
-export default function Header() {
+            <img src="user.svg" alt="Logo" />
+          </div>
+        </a>
+      </Link>
+    </div>
+  );
+}
+function LinkSavedRecipes(props) {
+  return (
+    <Link href={`${props.redirectPage}`}>
+      <a className={props.animation}>
+        <p>SAVED RECIPES</p>
+      </a>
+    </Link>
+  );
+}
+const Tooltip = () => (
+  <Popup
+    trigger={() => (
+      <a className="noanimation">
+        <p>SAVED RECIPES</p>
+      </a>
+    )}
+    position="bottom"
+    closeOnDocumentClick
+  >
+    <div
+      style={{
+        margin: '-10px 0 0 -12px',
+        width: '180px',
+        textAlign: 'center',
+        background: `${colors.darkorange}`,
+        borderRadius: '0 0 25px 25px',
+        color: `${colors.almostwhite}`,
+        padding: '10px 10px 15px 10px ',
+        opacity: '90%',
+      }}
+    >
+      Login required
+    </div>
+  </Popup>
+);
+export default function Header(props) {
+  const loggedInPassed = typeof props.loggedIn !== 'undefined';
+  const adminPassed = props.admin;
+  console.log(adminPassed);
   return (
     <header css={header}>
       <div css={navbar}>
@@ -65,20 +126,25 @@ export default function Header() {
             <p>ABOUT US</p>
           </a>
         </Link>
-        <Link href="/">
-          <a className="animation">
-            <p>CONTACT</p>
-          </a>
-        </Link>
-        <Link href="/register">
-          <a className="nope">
-            <div className="login">
-              <p>LOGIN</p>
 
-              <img src="user.svg" alt="Logo" />
-            </div>
-          </a>
-        </Link>
+        {!loggedInPassed ? null : props.loggedIn ? (
+          <LinkSavedRecipes animation={'animation'} redirectPage={'/profile'} />
+        ) : (
+          <Tooltip />
+        )}
+        {adminPassed ? (
+          <Link href="/adminpage">
+            <a className="animation">
+              <p>ADMIN</p>
+            </a>
+          </Link>
+        ) : null}
+
+        {!loggedInPassed ? null : props.loggedIn ? (
+          <LinkLogin loginstatus={'LOGOUT'} redirectPage={'/logout'} />
+        ) : (
+          <LinkLogin loginstatus={'LOGIN'} redirectPage={'/login'} />
+        )}
       </div>
     </header>
   );

@@ -12,6 +12,7 @@ const render = css`
   box-shadow: 9px 9px 16px rgb(163, 177, 198, 0.6),
     -9px -9px 16px rgba(255, 255, 255, 0.5);
   margin-left: 2vw;
+
   img {
     border-radius: 20px;
     max-height: 280px;
@@ -40,6 +41,8 @@ const render = css`
     height: 50px;
     text-align: center;
     vertical-align: center;
+    font-size: 80%;
+    font-weight: bold;
   }
 `;
 export default function RenderRecipes(props) {

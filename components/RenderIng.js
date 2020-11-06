@@ -44,6 +44,7 @@ export default function RenderIng(props) {
 
     props.setUserIngArray(arraydelete);
   }
+
   return props.userIngArray.map((ing) => {
     return (
       <div css={renderIng} key={ing.id}>
