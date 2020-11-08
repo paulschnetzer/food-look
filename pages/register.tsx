@@ -9,7 +9,7 @@ export default function Register(props: { token: string }){
   const router = useRouter();
 
   return(<>
-  <h1>!REGISTER!</h1>
+  <h1>REGISTER!</h1>
 
   <form onSubmit ={async (e)=>{
     e.preventDefault();

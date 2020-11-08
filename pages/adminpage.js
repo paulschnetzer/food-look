@@ -31,14 +31,18 @@ export default function Profile(props) {
   }
   async function handleUpload(e) {
     e.preventDefault();
-    const newRecipy = [recipeName, recipeImg, recipeLink, ingredients];
-    console.log(newRecipy);
+
     const response = await fetch('/api/adminpage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newRecipy),
+      body: JSON.stringify({
+        name: recipeName,
+        img: recipeImg,
+        link: recipeLink,
+        ingredients: ingredients,
+      }),
     });
     const { success } = await response.json();
     console.log(success);
@@ -93,7 +97,6 @@ export default function Profile(props) {
           required
         />
         <input type="submit" value="ADD Ingriedient" />
-        {console.log(ingredients)}
       </form>
       {ingredients.map((ing) => {
         return (

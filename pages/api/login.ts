@@ -10,6 +10,7 @@ export default async function handler(
 ) {
   const {username, password} =request.body
   const user = await getUserByUsername(username)
+
   if(typeof user==='undefined'){
     return response.status(401).send({success:false})
   }

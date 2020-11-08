@@ -36,7 +36,7 @@ export default function Login(props:Props){
     }
   }}>
   <input value={username} onChange={(e)=>setUsername(e.currentTarget.value)}/>
-  <input value={password} onChange={(e)=>setPassword(e.currentTarget.value)}/>
+  <input type="password" value={password} onChange={(e)=>setPassword(e.currentTarget.value)}/>
   <button>Submit</button>
   </form>
 <p style={{color:"red"}}>{errorMessage}</p>

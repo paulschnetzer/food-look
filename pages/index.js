@@ -34,6 +34,7 @@ export default function Home(props) {
     props.foodDataBase,
     simlifiedArray,
   );
+  console.log(props.foodDataBase);
   return (
     <Layout
       userIngArray={userIngArray}
