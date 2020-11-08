@@ -4,7 +4,7 @@ import {
   insertJoinedTable,
   getIngredients,
 } from '../../util/DataBaseAdminQuery';
-
+//TODO fix the bug when there are no new ingriedients
 function changedArray(arr, obj, arr2) {
   const newingredients = [...arr];
   const addRecipeId = newingredients.filter(
@@ -50,16 +50,13 @@ export default async function handler(request, response) {
       ingAleadyExistInDB.every((item2) => item2.name !== item1.name),
     );
 
-    const ingarray = await insertIngredient(ingredients);
+    const ingarray = await insertIngredient(ingToInsertInDB);
+    const x = ingarray.concat(ingAleadyExistInDB);
 
-    const arrayForJoinedTable = changedArray(
-      ingarray,
-      recipeobject,
-      ingredients,
-    );
+    const arrayForJoinedTable = changedArray(x, recipeobject, ingredients);
 
     await insertJoinedTable(arrayForJoinedTable);
-    response.send({ success: ingToInsertInDB });
+    response.send({ success: arrayForJoinedTable });
   } catch (err) {
     return response.status(500).send({ success: false });
   }
