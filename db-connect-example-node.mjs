@@ -58,6 +58,4 @@ let x = food.reduce((reducedFoodArray, recipeIng) => {
   return reducedFoodArray;
 }, []);
 
-console.log(x);
-
 sql.end();

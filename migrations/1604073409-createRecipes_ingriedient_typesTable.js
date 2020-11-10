@@ -5,7 +5,6 @@ exports.up = async function (sql) {
   recipe_id INT REFERENCES recipes (id),
   ingredient_id INT REFERENCES ingredients (id),
   ingredient_type_id INT REFERENCES ingredient_types (id)
-
 );
   `;
 };

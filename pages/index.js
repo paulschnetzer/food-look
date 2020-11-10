@@ -34,7 +34,7 @@ export default function Home(props) {
     props.foodDataBase,
     simlifiedArray,
   );
-  console.log(props.foodDataBase);
+
   return (
     <Layout
       userIngArray={userIngArray}
@@ -63,7 +63,7 @@ export async function getServerSideProps(context) {
   } else {
     admin = true;
   }
-  console.log(admin);
+
   return {
     props: {
       foodDataBase: foodDataBase,

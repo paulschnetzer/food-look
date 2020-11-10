@@ -10,6 +10,8 @@ const header = css`
   height: 10vh;
   width: 100%;
   background-color: ${colors.almostwhite};
+  z-index: 33;
+  opacity: 10;
   color: ${colors.almostblack};
   padding: 0 5% 0 0;
   p {
@@ -117,7 +119,7 @@ const Tooltip = () => (
 export default function Header(props) {
   const loggedInPassed = typeof props.loggedIn !== 'undefined';
   const adminPassed = props.admin;
-  console.log(adminPassed);
+
   return (
     <header css={header}>
       <div css={navbar}>

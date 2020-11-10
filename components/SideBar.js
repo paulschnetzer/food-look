@@ -9,6 +9,9 @@ import RenderIng from './RenderIng';
 const sidebar = css`
   position: fixed;
   background-color: ${colors.almostwhite};
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   left: 0;
   height: 100%;
   overflow-y: auto;

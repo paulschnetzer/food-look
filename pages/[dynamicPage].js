@@ -5,6 +5,7 @@ import { css } from '@emotion/core';
 import { colors } from '../util/colors';
 import nextCookies from 'next-cookies';
 import { isSessionTokenValid } from '../util/auth';
+import { getUserBySessionToken } from '../util/DataBaseUser';
 
 const container1 = css`
   display: grid;
@@ -34,13 +35,33 @@ const container1 = css`
     background-repeat: no-repeat;
     z-index: 55;
     border-radius: 20px;
+    button {
+      background-color: ${colors.orange};
+      height: 55px;
+      width: 55px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: -10px 0 0 -10px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+      transition-timing-function: ease-out;
+      img {
+        height: 30px;
+      }
+      :hover {
+        background-color: ${colors.darkorange};
+        transform: translate(0, 1px);
+      }
+    }
   }
   .textbox {
     grid-column: 2 / 4;
     grid-row: 2 / 6;
     width: 100%;
-    background-color: #fff1bf;
-    background-color: #f68920;
+    background-color: ${colors.darkorange};
     color: ${colors.almostwhite};
     padding: 5% 5% 5% 20%;
     border-radius: 20px;
@@ -82,13 +103,10 @@ const container1 = css`
       :first-letter {
         text-transform: uppercase;
       }
-      img {
-        height: 20px;
-      }
     }
 
     a {
-      color: ${colors.darkorange};
+      color: ${colors.orange};
       font-weight: bold;
       text-decoration: underline;
     }
@@ -119,6 +137,22 @@ export default function ProductPage(props) {
     }
     return false;
   });
+  async function handleUpload(e) {
+    e.preventDefault();
+
+    const response = await fetch('/api/dynamicpage', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        recipeId: props.id,
+        userId: props.user.id,
+      }),
+    });
+    const { success } = await response.json();
+    console.log(success);
+  }
   return (
     <>
       <Header loggedIn={props.loggedIn} />{' '}
@@ -128,7 +162,11 @@ export default function ProductPage(props) {
             backgroundImage: 'url(' + food.img + ')',
           }}
           className="picture"
-        />
+        >
+          <button onClick={handleUpload}>
+            <img src="save.svg" alt="Logo" />
+          </button>
+        </div>
         <div className="textbox">
           <h2>
             Enjoy no trouble
@@ -171,11 +209,13 @@ export async function getServerSideProps(context) {
   const { session: token } = nextCookies(context);
   const loggedIn = await isSessionTokenValid(token);
   const foodDataBase = await getRecipesForProductPage();
+  const user = await getUserBySessionToken(token);
   return {
     props: {
       id: context.query.dynamicPage,
       foodDataBase: foodDataBase,
       loggedIn: loggedIn,
+      user: user,
     },
   };
 }

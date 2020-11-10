@@ -72,3 +72,31 @@ export async function getUserBySessionToken(token) {
   `;
   return users.map((u) => camelcaseKeys(u))[0];
 }
+
+export async function insertUserRecipe(recipeId, userId) {
+  const sessions = await sql`
+   INSERT INTO user_recipe
+   (recipe_id, users_id)
+   VALUES
+   (${recipeId}, ${userId})
+   RETURNING *;`;
+  return sessions.map((s) => camelcaseKeys(s));
+}
+export async function getUserRecipe(userId) {
+  const users = await sql`
+    SELECT
+    recipes.id,
+    recipes.name,
+    recipes.img,
+    users.id
+    FROM
+      users,
+      user_recipe,
+      recipes
+    WHERE
+    users.id = ${userId} AND
+    users.id = user_recipe.users_id AND
+    recipes.id= user_recipe.recipe_id;
+  `;
+  return users;
+}

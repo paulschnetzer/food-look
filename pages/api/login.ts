@@ -36,7 +36,7 @@ export default async function handler(
    });
 
   response.setHeader('Set-Cookie', sessionCookie)
-  console.log(session);
+
   response.send({ success: true });
   await deleteExpiredSessions()
 }

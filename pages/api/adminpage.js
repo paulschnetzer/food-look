@@ -4,7 +4,7 @@ import {
   insertJoinedTable,
   getIngredients,
 } from '../../util/DataBaseAdminQuery';
-//TODO fix the bug when there are no new ingriedients
+
 function changedArray(arr, obj, arr2) {
   const newingredients = [...arr];
   const addRecipeId = newingredients.filter(
@@ -46,20 +46,32 @@ export default async function handler(request, response) {
     const ingAleadyExistInDB = allIngFromDatabase.filter((item1) =>
       ingredients.find((item2) => item2.name === item1.name),
     );
-    const ingToInsertInDB = ingredients.filter((item1) =>
-      ingAleadyExistInDB.every((item2) => item2.name !== item1.name),
-    );
+    // let ingToInsertInDB = null;
 
-    const ingarray = await insertIngredient(ingToInsertInDB);
-    const x = ingarray.concat(ingAleadyExistInDB);
-
-    const arrayForJoinedTable = changedArray(x, recipeobject, ingredients);
-
-    await insertJoinedTable(arrayForJoinedTable);
-    response.send({ success: arrayForJoinedTable });
+    if (ingAleadyExistInDB.length !== ingredients.length) {
+      const ingToInsertInDB = ingredients.filter((item1) =>
+        ingAleadyExistInDB.every((item2) => item2.name !== item1.name),
+      );
+      const ingArray = await insertIngredient(ingToInsertInDB);
+      const allIng = ingArray.concat(ingAleadyExistInDB);
+      const arrayForJoinedTable = changedArray(
+        allIng,
+        recipeobject,
+        ingredients,
+      );
+      await insertJoinedTable(arrayForJoinedTable);
+    } else {
+      const arrayForJoinedTable = changedArray(
+        ingAleadyExistInDB,
+        recipeobject,
+        ingredients,
+      );
+      await insertJoinedTable(arrayForJoinedTable);
+    }
   } catch (err) {
     return response.status(500).send({ success: false });
   }
+  response.send({ success: true });
 }
 // let ingarrayPlusRecipeId = ingarray.filter(
 //   (item1) => (item1.recipe_id = recipeobject.id),
