@@ -10,7 +10,7 @@ import {
   findMatchingObjectBasedOnIng,
   transformTheIngArray,
 } from '../util/helperFunctions';
-
+import { getIngredients } from '../util/DataBaseAdminQuery';
 const grid = css`
   background-color: ${colors.almostwhite};
   margin: 50px 0 50px 350px;
@@ -34,6 +34,7 @@ export default function Home(props) {
     props.foodDataBase,
     simlifiedArray,
   );
+  let ingArray = props.allIng.map((ing) => ing.name);
 
   return (
     <Layout
@@ -41,6 +42,8 @@ export default function Home(props) {
       setUserIngArray={setUserIngArray}
       loggedIn={props.loggedIn}
       admin={props.admin}
+      allIng={props.allIng}
+      ingArray={ingArray}
     >
       <div css={grid}>
         <RenderRecipes
@@ -57,6 +60,7 @@ export async function getServerSideProps(context) {
   const foodDataBase = await getRecipesForIndex();
   const { session: token } = nextCookies(context);
   let admin = await getUserBySessionToken(token);
+  const allIng = await getIngredients();
   const loggedIn = await isSessionTokenValid(token);
   if (admin === undefined || admin.userRoleId !== 1) {
     admin = false;
@@ -69,6 +73,7 @@ export async function getServerSideProps(context) {
       foodDataBase: foodDataBase,
       loggedIn: loggedIn,
       admin: admin,
+      allIng: allIng,
     },
   };
 }

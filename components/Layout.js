@@ -13,6 +13,7 @@ export default function Layout(props) {
       <Sidebar
         userIngArray={props.userIngArray}
         setUserIngArray={props.setUserIngArray}
+        ingArray={props.ingArray}
       />
 
       <Header loggedIn={props.loggedIn} admin={props.admin} />

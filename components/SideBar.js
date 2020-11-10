@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { colors } from '../util/colors';
 // import Link from 'next/link';
 import RenderIng from './RenderIng';
+import Autocomplete from './Autocomplete';
 
 const sidebar = css`
   position: fixed;
@@ -107,9 +108,9 @@ const sidebar = css`
 //##############################################################################################################//
 let number = 0;
 export default function Sidebar(props) {
-  // const [userIngArray, setUserIngArray]=useState([])
   const [newUserIng, setNewUserIng] = useState('');
-
+  const [suggestions, setSuggestions] = useState([]);
+  console.log(props.allIng);
   function handleSubmit(e) {
     e.preventDefault();
     const ingExists = props.userIngArray.some(
@@ -129,13 +130,21 @@ export default function Sidebar(props) {
       <img src="logo.svg" alt="Logo" />
       <div className="positionfixed">
         <form onSubmit={handleSubmit}>
-          <input
+          {/* <input
             type="text"
             placeholder="Add an ingredient"
             value={newUserIng}
             onChange={(e) => setNewUserIng(e.target.value)}
             required
+          /> */}
+          <Autocomplete
+            newUserIng={newUserIng}
+            setNewUserIng={setNewUserIng}
+            suggestions={suggestions}
+            setSuggestions={setSuggestions}
+            ingArray={props.ingArray}
           />
+          {console.log(props.allIng)}
           <input type="submit" value="ADD" />
         </form>
         <div className="renderItems">
