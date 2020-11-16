@@ -10,21 +10,37 @@ import Autocomplete from './Autocomplete';
 const sidebar = css`
   position: fixed;
   background-color: ${colors.almostwhite};
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
   left: 0;
+  top: -1px;
   height: 100%;
   overflow-y: auto;
   width: 350px;
   box-shadow: -18px 0px 15px 10px rgba(0, 0, 0, 0.39);
   margin-right: 350px;
   padding: 0 0 50px 0;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 800px) {
+    position: relative;
+    height: auto;
+    width: 100%;
+    align-items: center;
+    overflow-y: visible;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.09);
+
+    img {
+      margin: 0;
+      width: 500px;
+    }
+  }
   img {
     width: 250px;
     margin: 0 0 0 50px;
     border-radius: 0 0 10px 10px;
-    align-self: flex-start;
+    @media (max-width: 800px) {
+      margin: 0 0 -50px 0;
+      width: 300px;
+    }
   }
   form {
     display: flex;
@@ -41,6 +57,9 @@ const sidebar = css`
     margin: 0 0 0 20px;
     width: 250px;
     background-color: ${colors.almostwhite};
+    @media (max-width: 800px) {
+      margin: 0;
+    }
     :focus {
       background-color: ${colors.lightorange};
       color: ${colors.almostblack};
@@ -110,7 +129,7 @@ let number = 0;
 export default function Sidebar(props) {
   const [newUserIng, setNewUserIng] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  console.log(props.allIng);
+
   function handleSubmit(e) {
     e.preventDefault();
     const ingExists = props.userIngArray.some(
@@ -130,21 +149,15 @@ export default function Sidebar(props) {
       <img src="logo.svg" alt="Logo" />
       <div className="positionfixed">
         <form onSubmit={handleSubmit}>
-          {/* <input
-            type="text"
-            placeholder="Add an ingredient"
-            value={newUserIng}
-            onChange={(e) => setNewUserIng(e.target.value)}
-            required
-          /> */}
           <Autocomplete
             newUserIng={newUserIng}
             setNewUserIng={setNewUserIng}
             suggestions={suggestions}
             setSuggestions={setSuggestions}
             ingArray={props.ingArray}
+            mainIngArray={props.mainIngArray}
           />
-          {console.log(props.allIng)}
+
           <input type="submit" value="ADD" />
         </form>
         <div className="renderItems">

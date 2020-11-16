@@ -14,6 +14,13 @@ const grid = css`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  @media (max-width: 1000px) {
+    background-color: ${colors.lightorange};
+    height: 100vh;
+  }
+  @media (max-width: 380px) {
+    font-size: 70%;
+  }
   .container {
     display: flex;
     flex-direction: row;
@@ -23,6 +30,10 @@ const grid = css`
     width: 400px;
     padding: 40px;
     border-radius: 50px;
+    @media (max-width: 400px) {
+      width: 100%;
+      border-radius: 0;
+    }
     .h1container {
       display: flex;
       justify-content: space-between;
@@ -73,6 +84,9 @@ const grid = css`
         :hover {
           background-color: ${colors.darkorange};
           transform: translate(0, 1px);
+        }
+        @media (max-width: 380px) {
+          font-weight: 600;
         }
       }
       input {

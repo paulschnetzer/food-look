@@ -31,6 +31,25 @@ export async function getIngredients() {
   return allingredient;
 }
 
+export async function getMainIngredients() {
+  const mainIng = await sql`
+  SELECT
+  ingredients.name as name
+FROM
+  recipes,
+  ingredients,
+  ingredient_types,
+  recipes_ingredients_types
+WHERE
+  ingredient_types.name = 'main' AND
+  recipes_ingredients_types.ingredient_type_id = ingredient_types.id AND
+  recipes_ingredients_types.recipe_id = recipes.id AND
+  recipes_ingredients_types.ingredient_id = ingredients.id
+  ;
+    `;
+  return mainIng;
+}
+
 export async function insertJoinedTable(pairings) {
   const ingredient = await sql`
    INSERT INTO recipes_ingredients_types ${sql(

@@ -85,10 +85,10 @@ export async function insertUserRecipe(recipeId, userId) {
 export async function getUserRecipe(userId) {
   const users = await sql`
     SELECT
-    recipes.id,
+    recipes.id as recipe_id,
     recipes.name,
     recipes.img,
-    users.id
+    users.id as user_id
     FROM
       users,
       user_recipe,
@@ -99,4 +99,12 @@ export async function getUserRecipe(userId) {
     recipes.id= user_recipe.recipe_id;
   `;
   return users;
+}
+export async function deleteUserRecipe(recipeId, userId) {
+  const deletedRecipe = await sql`
+   DELETE FROM user_recipe
+   WHERE recipe_id =${recipeId} AND
+   users_id =${userId}
+   RETURNING *;`;
+  return deletedRecipe.map((s) => camelcaseKeys(s));
 }

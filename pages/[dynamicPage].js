@@ -1,4 +1,5 @@
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Link from 'next/link';
 import React from 'react';
 import { css } from '@emotion/core';
@@ -14,17 +15,31 @@ const container1 = css`
   margin-bottom: 190px;
 
   justify-content: center;
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 200px 500px 500px;
+    margin: 50px 30px;
+  }
+  @media (max-width: 500px) {
+    margin: 50px 0;
+  }
   h1 {
     padding: 0;
     grid-column: 1 / 4;
     grid-row: 1 / 1;
-    text-decoration: underline;
-    display: inline;
+    display: block;
     text-transform: uppercase;
     font-size: 300%;
-    font-weight: lighter;
+    font-weight: 300;
     letter-spacing: 4px;
     word-spacing: 6px;
+    border-bottom: 2px solid ${colors.almostblack};
+    @media (max-width: 1000px) {
+      grid-column: 1 / 1;
+      grid-row: 1 / 1;
+      text-align: center;
+      margin-bottom: 50px;
+    }
   }
   .picture {
     grid-column: 1 / 3;
@@ -33,8 +48,21 @@ const container1 = css`
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    z-index: 55;
+    z-index: 2;
     border-radius: 20px;
+
+    @media (max-width: 1000px) {
+      grid-column: 1 / 1;
+      grid-row: 2 / 2;
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      justify-content: center;
+      z-index: 0;
+    }
+    @media (max-width: 500px) {
+      border-radius: 0;
+      z-index: 0;
+    }
     button {
       background-color: ${colors.orange};
       height: 55px;
@@ -43,7 +71,7 @@ const container1 = css`
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: -10px 0 0 -10px;
+      margin: -10px 0 0 0;
       border: none;
       cursor: pointer;
       transition: 0.2s;
@@ -56,6 +84,13 @@ const container1 = css`
         transform: translate(0, 1px);
       }
     }
+    .noAnimation {
+      background-color: grey;
+      :hover {
+        background-color: grey;
+        transform: translate(0, 0px);
+      }
+    }
   }
   .textbox {
     grid-column: 2 / 4;
@@ -65,6 +100,14 @@ const container1 = css`
     color: ${colors.almostwhite};
     padding: 5% 5% 5% 20%;
     border-radius: 20px;
+    @media (max-width: 1000px) {
+      grid-column: 1 / 1;
+      grid-row: 3 / 3;
+      border-radius: 0 0 20px 20px;
+    }
+    @media (max-width: 500px) {
+      border-radius: 0;
+    }
     h2:first-child {
       display: inline;
       font-size: 100%;
@@ -151,7 +194,6 @@ export default function ProductPage(props) {
       }),
     });
     const { success } = await response.json();
-    console.log(success);
   }
   return (
     <>
@@ -163,9 +205,15 @@ export default function ProductPage(props) {
           }}
           className="picture"
         >
-          <button onClick={handleUpload}>
-            <img src="save.svg" alt="Logo" />
-          </button>
+          {props.loggedIn ? (
+            <button onClick={handleUpload}>
+              <img src="save.svg" alt="Logo" />
+            </button>
+          ) : (
+            <button className="noAnimation">
+              <img src="save.svg" alt="Logo" />
+            </button>
+          )}
         </div>
         <div className="textbox">
           <h2>
@@ -198,6 +246,7 @@ export default function ProductPage(props) {
         </div>
         <h1>{food.name}</h1>
       </div>
+      <Footer />
     </>
   );
 }
@@ -209,7 +258,11 @@ export async function getServerSideProps(context) {
   const { session: token } = nextCookies(context);
   const loggedIn = await isSessionTokenValid(token);
   const foodDataBase = await getRecipesForProductPage();
-  const user = await getUserBySessionToken(token);
+  let user = false;
+  if (loggedIn) {
+    user = await getUserBySessionToken(token);
+  }
+
   return {
     props: {
       id: context.query.dynamicPage,

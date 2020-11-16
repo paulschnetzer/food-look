@@ -11,7 +11,7 @@ const autosuggest = css`
     display: block;
     position: absolute;
     left: 31px;
-    top: 46px;
+    top: 122px;
     width: 240px;
     border: 1px solid #aaa;
     border-top: 0;
@@ -19,7 +19,12 @@ const autosuggest = css`
     padding: 20px;
 
     border-radius: 0 0 20px 20px;
+    @media (max-width: 1000px) {
+      left: 11px;
+      top: 120px;
+    }
   }
+
   .react-autosuggest__suggestion {
     cursor: pointer;
     padding: 10px 20px;
@@ -35,17 +40,15 @@ const autosuggest = css`
 `;
 
 export default function Autocomplete(props) {
-  const ing = props.ingArray;
+  const ing = props.mainIngArray.map((x) => x.name);
   const getSuggestions = (value) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
-    return inputLength === 0
-      ? []
-      : ing.filter(
-          (lang) => lang.toLowerCase().slice(0, inputLength) === inputValue,
-        );
+    return ing.filter(
+      (lang) => lang.toLowerCase().slice(0, inputLength) === inputValue,
+    );
   };
-  console.log(props.newUserIng);
+
   const onSuggestionsFetchRequested = ({ value }) => {
     props.setSuggestions(getSuggestions(value));
   };
@@ -55,6 +58,7 @@ export default function Autocomplete(props) {
       <header>
         <Autosuggest
           suggestions={props.suggestions}
+          shouldRenderSuggestions={() => true}
           onSuggestionsFetchRequested={onSuggestionsFetchRequested}
           onSuggestionsClearRequested={() => {
             props.setSuggestions([]);

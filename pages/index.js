@@ -10,7 +10,7 @@ import {
   findMatchingObjectBasedOnIng,
   transformTheIngArray,
 } from '../util/helperFunctions';
-import { getIngredients } from '../util/DataBaseAdminQuery';
+import { getIngredients, getMainIngredients } from '../util/DataBaseAdminQuery';
 const grid = css`
   background-color: ${colors.almostwhite};
   margin: 50px 0 50px 350px;
@@ -19,8 +19,11 @@ const grid = css`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  @media (max-width: 800px) {
+    width: 100%;
+    margin: 50px 0;
+  }
   div {
-    margin-bottom: 100px;
     width: 300px;
     height: 380px;
     margin-bottom: 50px;
@@ -34,7 +37,11 @@ export default function Home(props) {
     props.foodDataBase,
     simlifiedArray,
   );
-  let ingArray = props.allIng.map((ing) => ing.name);
+  const ingArray = props.allIng.map((ing) => ing.name);
+  const uniq = {};
+  const mainIngArray = props.mainIng.filter(
+    (ing) => !uniq[ing.name] && (uniq[ing.name] = true),
+  );
 
   return (
     <Layout
@@ -42,8 +49,8 @@ export default function Home(props) {
       setUserIngArray={setUserIngArray}
       loggedIn={props.loggedIn}
       admin={props.admin}
-      allIng={props.allIng}
       ingArray={ingArray}
+      mainIngArray={mainIngArray}
     >
       <div css={grid}>
         <RenderRecipes
@@ -61,6 +68,7 @@ export async function getServerSideProps(context) {
   const { session: token } = nextCookies(context);
   let admin = await getUserBySessionToken(token);
   const allIng = await getIngredients();
+  const mainIng = await getMainIngredients();
   const loggedIn = await isSessionTokenValid(token);
   if (admin === undefined || admin.userRoleId !== 1) {
     admin = false;
@@ -74,6 +82,7 @@ export async function getServerSideProps(context) {
       loggedIn: loggedIn,
       admin: admin,
       allIng: allIng,
+      mainIng: mainIng,
     },
   };
 }
