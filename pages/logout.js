@@ -1,4 +1,3 @@
-import { GetServerSidePropsContext } from 'next';
 import nextCookies from 'next-cookies';
 import cookie from 'cookie';
 import { deleteSessionByToken } from '../util/DataBase';
@@ -7,7 +6,7 @@ export default function Logout() {
   return null;
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getServerSideProps(context) {
   const { session: token } = nextCookies(context);
 
   await deleteSessionByToken(token);
