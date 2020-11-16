@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import sql from './process-env';
+import { sql } from './process-env';
 import setPostgresDefaultsOnHeroku from '../util/setPostgresDefaultsOnHeroku';
 setPostgresDefaultsOnHeroku();
 dotenv.config();

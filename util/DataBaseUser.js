@@ -1,4 +1,4 @@
-import sql from './process-env';
+import { sql } from './process-env';
 import dotenv from 'dotenv';
 import camelcaseKeys from 'camelcase-keys';
 import setPostgresDefaultsOnHeroku from '../util/setPostgresDefaultsOnHeroku';
