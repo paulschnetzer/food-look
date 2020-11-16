@@ -3,7 +3,7 @@ import nextCookies from 'next-cookies';
 import Head from 'next/head';
 import { isSessionTokenValid } from '../util/auth';
 // import Header from '../components/Header';
-import { getUserBySessionToken } from '../util/DataBaseUser';
+import { getUserBySessionToken } from '../util/DataBase';
 import React, { useState } from 'react';
 let number = 0;
 export default function Profile(props) {

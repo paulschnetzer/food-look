@@ -5,12 +5,12 @@ import RenderRecipes from '../components/RenderRecipes';
 import nextCookies from 'next-cookies';
 import { colors } from '../util/colors';
 import { isSessionTokenValid } from '../util/auth';
-import { getUserBySessionToken } from '../util/DataBaseUser';
+import { getUserBySessionToken } from '../util/DataBase';
 import {
   findMatchingObjectBasedOnIng,
   transformTheIngArray,
 } from '../util/helperFunctions';
-import { getIngredients, getMainIngredients } from '../util/DataBaseAdminQuery';
+import { getIngredients, getMainIngredients } from '../util/DataBase';
 const grid = css`
   background-color: ${colors.almostwhite};
   margin: 50px 0 50px 350px;
@@ -63,7 +63,7 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-  const { getRecipesForIndex } = await import('../util/DataBaseIndexQuery');
+  const { getRecipesForIndex } = await import('../util/DataBase');
   const foodDataBase = await getRecipesForIndex();
   const { session: token } = nextCookies(context);
   let admin = await getUserBySessionToken(token);

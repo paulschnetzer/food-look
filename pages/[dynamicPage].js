@@ -6,7 +6,7 @@ import { css } from '@emotion/core';
 import { colors } from '../util/colors';
 import nextCookies from 'next-cookies';
 import { isSessionTokenValid } from '../util/auth';
-import { getUserBySessionToken } from '../util/DataBaseUser';
+import { getUserBySessionToken } from '../util/DataBase';
 
 const container1 = css`
   display: grid;
@@ -252,9 +252,7 @@ export default function ProductPage(props) {
 }
 
 export async function getServerSideProps(context) {
-  const { getRecipesForProductPage } = await import(
-    '../util/DataBaseProductPageQuery'
-  );
+  const { getRecipesForProductPage } = await import('../util/DataBase');
   const { session: token } = nextCookies(context);
   const loggedIn = await isSessionTokenValid(token);
   const foodDataBase = await getRecipesForProductPage();

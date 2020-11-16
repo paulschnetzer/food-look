@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import nextCookies from 'next-cookies';
 import cookie from 'cookie';
-import { deleteSessionByToken } from '../util/DataBaseUser';
+import { deleteSessionByToken } from '../util/DataBase';
 
 export default function Logout() {
   return null;

@@ -1,4 +1,4 @@
-import { getSessionByToken } from './DataBaseUser';
+import { getSessionByToken } from './DataBase';
 
 export async function isSessionTokenValid(token) {
   if (typeof token === 'undefined') {

@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { deleteExpiredSessions, getUserByUsername, insertSession } from '../../util/DataBaseUser';
+import { deleteExpiredSessions, getUserByUsername, insertSession } from '../../util/DataBase';
 import cookie from 'cookie'
 import argon2 from 'argon2'
 
