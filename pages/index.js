@@ -5,12 +5,16 @@ import RenderRecipes from '../components/RenderRecipes';
 import nextCookies from 'next-cookies';
 import { colors } from '../util/colors';
 import { isSessionTokenValid } from '../util/auth';
-import { getUserBySessionToken } from '../util/DataBase';
+import {
+  getUserBySessionToken,
+  getIngredients,
+  getMainIngredients,
+} from '../util/DataBase';
 import {
   findMatchingObjectBasedOnIng,
   transformTheIngArray,
 } from '../util/helperFunctions';
-import { getIngredients, getMainIngredients } from '../util/DataBase';
+
 const grid = css`
   background-color: ${colors.almostwhite};
   margin: 50px 0 50px 350px;
