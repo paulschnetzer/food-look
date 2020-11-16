@@ -110,3 +110,4 @@
 //   recipes_ingredients_types.ingredient_type_id = ingredient_types.id AND
 //   recipes_ingredients_types.recipe_id = recipes.id AND
 //   recipes_ingredients_types.ingredient_id = ingredients.id;
+// psql  -d dfvu5enjh7su28 -U jktjywexkhwjmf -h ec2-52-17-53-249.eu-west-1.compute.amazonaws.com
