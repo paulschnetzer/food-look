@@ -1,6 +1,7 @@
 import postgres from 'postgres';
 import dotenv from 'dotenv';
-
+import setPostgresDefaultsOnHeroku from '../util/setPostgresDefaultsOnHeroku';
+setPostgresDefaultsOnHeroku();
 dotenv.config();
 
 const sql = postgres();
