@@ -9,7 +9,7 @@ import {
   getUserBySessionToken,
   getIngredients,
   getMainIngredients,
-} from '../util/DataBase';
+} from '../util/database';
 import {
   findMatchingObjectBasedOnIng,
   transformTheIngArray,
@@ -67,7 +67,7 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-  const { getRecipesForIndex } = await import('../util/DataBase');
+  const { getRecipesForIndex } = await import('../util/database');
   const foodDataBase = await getRecipesForIndex();
   const { session: token } = nextCookies(context);
   let admin = await getUserBySessionToken(token);

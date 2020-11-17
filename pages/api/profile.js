@@ -1,4 +1,4 @@
-import { deleteUserRecipe } from '../../util/DataBase';
+import { deleteUserRecipe } from '../../util/database';
 
 export default async function handler(request, response) {
   const { recipeId, userId } = request.body;
