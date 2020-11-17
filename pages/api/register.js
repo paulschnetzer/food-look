@@ -1,6 +1,6 @@
 import argon2 from 'argon2';
 import Tokens from 'csrf';
-import { registerUser, getUserByUsername } from '../../util/database';
+import { registerUser, getUserByUsername } from '../../util/databasefinal';
 
 const tokens = new Tokens();
 

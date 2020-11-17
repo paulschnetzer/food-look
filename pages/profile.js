@@ -8,7 +8,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { isSessionTokenValid } from '../util/auth';
 import Header from '../components/Header';
-import { getUserBySessionToken, getUserRecipe } from '../util/database';
+import { getUserBySessionToken, getUserRecipe } from '../util/databasefinal';
 import { css } from '@emotion/core';
 import { colors } from '../util/colors';
 import React, { useState } from 'react';

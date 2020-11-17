@@ -3,7 +3,7 @@ import {
   insertIngredient,
   insertJoinedTable,
   getIngredients,
-} from '../../util/database';
+} from '../../util/databasefinal';
 
 function changedArray(arr, obj, arr2) {
   const newingredients = [...arr];
