@@ -6,11 +6,28 @@ import Popup from 'reactjs-popup';
 import { useWindowWidth } from '@react-hook/window-size';
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-const header = css`
+import { useRouter } from 'next/router';
+const header = (router) => css`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   background-color: ${colors.almostwhite};
+  a[href='/'] {
+    display: ${router.pathname === '/' ? 'none' : 'visible'};
+  }
+  a[href='/login'] {
+    display: ${router.pathname === '/login' ? 'none' : 'visible'};
+  }
+  a[href='/register'] {
+    display: ${router.pathname === '/register' ? 'none' : 'visible'};
+  }
+  a[href='/about'] {
+    display: ${router.pathname === '/about' ? 'none' : 'visible'};
+  }
+  a[href='/profile'] {
+    display: ${router.pathname === '/profile' ? 'none' : 'visible'};
+  }
+
   .toggleButton {
     height: 50px;
     width: 50px;
@@ -197,6 +214,7 @@ const Tooltip = () => (
   </Popup>
 );
 export default function Header(props) {
+  const router = useRouter();
   const [dropDownNav, setDropDownNav] = useState(false);
   const loggedInPassed = typeof props.loggedIn !== 'undefined';
   const adminPassed = props.admin;
@@ -209,7 +227,7 @@ export default function Header(props) {
   }
 
   return (
-    <header css={header}>
+    <header css={header(router)}>
       <div href="#" className="toggleButton" onClick={handleDropDownNav}>
         <div />
         <div />
@@ -222,6 +240,11 @@ export default function Header(props) {
         unmountOnExit
       >
         <div css={navbar} className="navBar">
+          <Link href="/">
+            <a className="animation">
+              <p>HOME</p>
+            </a>
+          </Link>
           <Link href="/about">
             <a className="animation">
               <p>ABOUT US</p>

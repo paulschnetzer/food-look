@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import nextCookies from 'next-cookies';
@@ -34,12 +34,18 @@ const footer = () => css`
       @media (max-width: 1050px) {
         width: 80vw;
       }
+      @media (max-width: 400px) {
+        margin: 0px;
+      }
       h2 {
         color: ${colors.darkorange};
         font-size: 150%;
         font-weight: 400;
         letter-spacing: 4px;
         word-spacing: 4px;
+        @media (max-width: 400px) {
+          font-weight: bold;
+        }
       }
       p {
         font-size: 80%;
@@ -47,6 +53,9 @@ const footer = () => css`
         opacity: 80%;
         font-weight: 400;
         line-height: 30px;
+        @media (max-width: 400px) {
+          font-size: 13px;
+        }
       }
     }
   }
