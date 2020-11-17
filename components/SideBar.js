@@ -21,14 +21,13 @@ const sidebar = css`
   display: flex;
   flex-direction: column;
   @media (max-width: 800px) {
-    position: relative;
-    height: auto;
+    position: absolute;
+    height: 458px;
     width: 100%;
     align-items: center;
     overflow-y: visible;
     box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.09);
-
-    img {
+    height img {
       margin: 0;
       width: 500px;
     }
@@ -44,7 +43,7 @@ const sidebar = css`
   }
   form {
     display: flex;
-    margin: 10vh 0 30px 0;
+    margin: 74px 0 30px 0;
   }
   input[type='text'] {
     border: none;

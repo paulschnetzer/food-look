@@ -55,25 +55,23 @@ export default function Autocomplete(props) {
 
   return (
     <div css={autosuggest}>
-      <header>
-        <Autosuggest
-          suggestions={props.suggestions}
-          shouldRenderSuggestions={() => true}
-          onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={() => {
-            props.setSuggestions([]);
-          }}
-          getSuggestionValue={(suggestion) => suggestion}
-          renderSuggestion={(suggestion) => <span>{suggestion}</span>}
-          inputProps={{
-            placeholder: 'Add an ingredient',
-            value: props.newUserIng,
-            onChange: (e, { newValue }) => {
-              props.setNewUserIng(newValue);
-            },
-          }}
-        />
-      </header>
+      <Autosuggest
+        suggestions={props.suggestions}
+        shouldRenderSuggestions={() => true}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={() => {
+          props.setSuggestions([]);
+        }}
+        getSuggestionValue={(suggestion) => suggestion}
+        renderSuggestion={(suggestion) => <span>{suggestion}</span>}
+        inputProps={{
+          placeholder: 'Add an ingredient',
+          value: props.newUserIng,
+          onChange: (e, { newValue }) => {
+            props.setNewUserIng(newValue);
+          },
+        }}
+      />
     </div>
   );
 }
