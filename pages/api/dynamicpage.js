@@ -1,4 +1,4 @@
-import { insertUserRecipe } from '../../util/databasefinal';
+import { insertUserRecipe } from '../../util/database';
 
 export default async function handler(request, response) {
   const { recipeId, userId } = request.body;

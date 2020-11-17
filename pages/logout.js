@@ -1,6 +1,6 @@
 import nextCookies from 'next-cookies';
 import cookie from 'cookie';
-import { deleteSessionByToken } from '../util/databasefinal';
+import { deleteSessionByToken } from '../util/database';
 
 export default function Logout() {
   return null;

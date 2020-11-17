@@ -3,7 +3,7 @@ import {
   deleteExpiredSessions,
   getUserByUsername,
   insertSession,
-} from '../../util/databasefinal';
+} from '../../util/database';
 import cookie from 'cookie';
 import argon2 from 'argon2';
 
