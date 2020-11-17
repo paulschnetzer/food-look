@@ -12,12 +12,12 @@ const container1 = css`
   display: grid;
   grid-template-columns: 35% 5% 40%;
   grid-template-rows: 25% 5% 60% 5% 1fr;
-  margin-bottom: 190px;
+  margin-bottom: 150px;
 
   justify-content: center;
   @media (max-width: 1000px) {
     grid-template-columns: 1fr;
-    grid-template-rows: 200px 500px 500px;
+    grid-template-rows: 150px 300px 1fr;
     margin: 50px 30px;
   }
   @media (max-width: 500px) {
@@ -39,6 +39,12 @@ const container1 = css`
       grid-row: 1 / 1;
       text-align: center;
       margin-bottom: 50px;
+      font-size: 200%;
+      border: none;
+    }
+    @media (max-width: 450px) {
+      font-size: 150%;
+      border: none;
     }
   }
   .picture {
@@ -96,52 +102,55 @@ const container1 = css`
     grid-column: 2 / 4;
     grid-row: 2 / 6;
     width: 100%;
-    background-color: ${colors.darkorange};
-    color: ${colors.almostwhite};
+    background-color: ${colors.almostwhite};
+    box-shadow: 9px 9px 16px rgb(163, 177, 198, 0.6),
+      -9px -9px 16px rgba(255, 255, 255, 0.5);
+    color: ${colors.almostblack};
     padding: 5% 5% 5% 20%;
     border-radius: 20px;
     @media (max-width: 1000px) {
       grid-column: 1 / 1;
       grid-row: 3 / 3;
       border-radius: 0 0 20px 20px;
+
+      padding: 10%;
     }
     @media (max-width: 500px) {
       border-radius: 0;
+      background-color: ${colors.almostwhite};
+      box-shadow: none;
     }
-    h2:first-child {
-      display: inline;
-      font-size: 100%;
-      font-weight: 400;
-      letter-spacing: 3px;
-      word-spacing: 5px;
-      line-height: 180%;
-      opacity: 90%;
-      border-bottom: none;
-    }
+
     h2 {
-      display: inline;
       text-transform: uppercase;
       font-size: 130%;
       font-weight: 500;
-      border-bottom: 2px solid ${colors.almostwhite};
+      padding-bottom: 20px;
+      color: ${colors.darkorange};
       letter-spacing: 3px;
       word-spacing: 5px;
+      border-bottom: 2px solid ${colors.almostblack};
+      text-align: center;
+      margin-bottom: 5px;
     }
     p {
       opacity: 80%;
-      font-size: 90%;
+      font-size: 80%;
+      line-height: 30px;
     }
     ol {
       padding: 10px 0;
+      list-style-type: none;
+      margin: 0;
     }
     li {
-      opacity: 90%;
-      font-size: 90%;
-
-      line-height: 150%;
+      opacity: 100%;
+      font-size: 70%;
+      font-weight: bold;
+      line-height: 200%;
       letter-spacing: 1.5px;
       word-spacing: 2px;
-      margin-left: 20px;
+      text-align: center;
 
       :first-letter {
         text-transform: uppercase;
@@ -149,7 +158,7 @@ const container1 = css`
     }
 
     a {
-      color: ${colors.orange};
+      color: ${colors.darkorange};
       font-weight: bold;
       text-decoration: underline;
     }
@@ -164,10 +173,8 @@ function Spices(props) {
   return (
     <div>
       <p>
-        <p>
-          Sure if you have {props.food.spices.join(', ')} laying around this
-          would add some more flavor to it but its not essetial.
-        </p>
+        Sure if you have {props.food.spices.join(', ')} laying around this would
+        add some more flavor to it but its not essetial.
       </p>
     </div>
   );
@@ -216,22 +223,18 @@ export default function ProductPage(props) {
           )}
         </div>
         <div className="textbox">
-          <h2>
-            Enjoy no trouble
-            <br />
-            <h2> {food.name}</h2>
-          </h2>
-
           <p>
             If we are honest with our selfs this recipe only need{' '}
-            <b>{food.ingredients.length}</b> real ingredients:
+            <b>{food.ingredients.length}</b> real ingredients. All recipes here
+            are very basic in its core, including this one.
           </p>
+          {food.spices.length !== 0 ? <Spices food={food} /> : null}
+          <h2>ingredients</h2>
           <ol css={opacitiy}>
             {food.ingredients.map((ing) => {
               return <li>{ing}</li>;
             })}
           </ol>
-          {food.spices.length !== 0 ? <Spices food={food} /> : null}
 
           <p>
             You can use this{' '}

@@ -14,30 +14,40 @@ import { colors } from '../util/colors';
 import React, { useState } from 'react';
 const container1 = css`
   color: ${colors.almostwhite};
-  background-color: ${colors.almostwhite};
+  background-color: ${colors.darkwhite};
   min-height: 80vh;
-  margin-bottom: 40px;
 
   img {
     height: 200px;
   }
   .textcontainer {
-    background-color: ${colors.darkorange};
-    text-align: center;
-    padding: 20px;
-    margin-bottom: 40px;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url('aboutBackground.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    width: 100%;
 
     h1 {
-      letter-spacing: 3px;
-      word-spacing: 4px;
+      font-size: 200%;
       font-weight: 400;
+      letter-spacing: 4px;
+      word-spacing: 7px;
+      margin-bottom: 20px;
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+      margin-top: 0;
     }
     p {
-      letter-spacing: 2px;
-      word-spacing: 3px;
-      font-weight: 600;
       font-size: 90%;
-      opacity: 90%;
+      font-weight: 500;
+      letter-spacing: 3px;
+      word-spacing: 3px;
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
     }
   }
 
@@ -46,6 +56,7 @@ const container1 = css`
     flex-wrap: wrap;
     justify-content: space-around;
     width: 100%;
+    height: 100%;
   }
   .savedRecipes {
     display: flex;

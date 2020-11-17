@@ -110,5 +110,6 @@
 //   recipes_ingredients_types.ingredient_type_id = ingredient_types.id AND
 //   recipes_ingredients_types.recipe_id = recipes.id AND
 //   recipes_ingredients_types.ingredient_id = ingredients.id;
-// psql  -d d7bgfmqg8r5sis -U kkdoywodrkfmda -h ec2-46-137-100-204.eu-west-1.compute.amazonaws.com
+// psql  -d d6bo5odafihlg2 -U ssguzktqivwkki -h ec2-52-212-157-46.eu-west-1.compute.amazonaws.com
+
 // insert into users (user_name, password_hash, user_role_id) Values('Paul Schnetzer', '$argon2i$v=19$m=4096,t=3,p=1$WRmp6TQADwNi7T2ihlHhww$t+ExNtJfB2PREHW/3RVAsVteg3e4MxmsYVPRjkew4N0', '1')

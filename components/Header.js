@@ -10,6 +10,7 @@ const header = css`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  background-color: ${colors.almostwhite};
   .toggleButton {
     height: 50px;
     width: 50px;
@@ -221,7 +222,7 @@ export default function Header(props) {
         unmountOnExit
       >
         <div css={navbar} className="navBar">
-          <Link href="/">
+          <Link href="/about">
             <a className="animation">
               <p>ABOUT US</p>
             </a>

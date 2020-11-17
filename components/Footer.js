@@ -3,7 +3,7 @@ import { colors } from '../util/colors';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 const footer = (router) => css`
-  background-color: ${colors.almostblack};
+  background-color: ${colors.darkorange};
   height: 160px;
   width: 100%;
   color: ${colors.almostwhite};
