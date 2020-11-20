@@ -23,6 +23,7 @@ const grid = css`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+
   @media (max-width: 800px) {
     width: 100%;
     margin: 50px 0;

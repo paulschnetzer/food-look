@@ -46,7 +46,6 @@ export default async function handler(request, response) {
     const ingAleadyExistInDB = allIngFromDatabase.filter((item1) =>
       ingredients.find((item2) => item2.name === item1.name),
     );
-    // let ingToInsertInDB = null;
 
     if (ingAleadyExistInDB.length !== ingredients.length) {
       const ingToInsertInDB = ingredients.filter((item1) =>

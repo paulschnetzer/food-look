@@ -9,6 +9,7 @@ const renderIng = css`
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+
   div {
     margin: 20px 0 0 20px;
     border-radius: 10px;

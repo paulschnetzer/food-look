@@ -16,10 +16,6 @@ const container1 = css`
   color: ${colors.almostwhite};
   background-color: ${colors.darkwhite};
   min-height: 80vh;
-
-  img {
-    height: 200px;
-  }
   .textcontainer {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
       url('aboutBackground.jpg');
@@ -32,7 +28,6 @@ const container1 = css`
     align-items: center;
     height: 40vh;
     width: 100%;
-
     h1 {
       font-size: 200%;
       font-weight: 400;
@@ -50,99 +45,112 @@ const container1 = css`
       text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
     }
   }
-
   .recipesGrid {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 100%;
-    height: 100%;
-  }
-  .savedRecipes {
-    display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 40px;
-    @media (max-width: 700px) {
-      padding: 40px 0;
-    }
 
+    height: auto;
+  }
+`;
+
+const container2 = (recipe) => css`
+  display: grid;
+  grid-template-columns: 100px 600px 100px;
+  grid-template-rows: 20px 200px 20px;
+  margin: 50px 0px;
+
+  .backgroundContainer {
+    grid-column: 1 / 3;
+    grid-row: 2 / 4;
+    background-color: ${colors.almostwhite};
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 30px;
+    border-radius: 10px;
+
+    box-shadow: -5px -5px 10px #e8e8e8, 5px 5px 10px #e8e8e8;
+    p {
+      font-size: 300%;
+      font-weight: 600;
+      color: ${colors.almostblack};
+      opacity: 90%;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+  .frontContainer {
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
+    display: flex;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 15px -5px 10px #e8e8e8;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
+      url('${recipe.img}');
+    border-radius: 10px;
     .title {
-      border-radius: 20px 20px 0 0;
-      border: 0;
-      p {
-        font-size: 130%;
-        margin: 10px;
-        letter-spacing: 2px;
-        word-spacing: 4px;
-        font-weight: 400;
+      margin-top: 30px;
+      display: inline-block;
+      width: fit-content;
+      background-color: ${colors.almostwhite};
+      border-radius: 0 10px 10px 0;
+      h2 {
+        display: inline-block;
+        margin: 10px 20px;
         color: ${colors.almostblack};
+        opacity: 90%;
+        letter-spacing: 4px;
+        word-spacing: 7px;
+
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
       }
     }
-  }
-  .imgContainer {
-    height: 250px;
-    width: 600px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: flex-end;
-    align-items: stretch;
-    border-radius: 30px;
-    background-color: transparent;
-    box-shadow: 2px 5px 11px 5px rgba(0, 0, 0, 0.09);
-    @media (max-width: 700px) {
-      width: 400px;
+    .text {
+      margin: 0 100px 10px 20px;
+      p {
+        font-size: 80%;
+        line-height: 25px;
+        letter-spacing: 2px;
+        word-spacing: 2px;
+        opacity: 90%;
+      }
     }
-    @media (max-width: 450px) {
-      width: 300px;
-    }
-
-    div {
-      background-color: white;
-      width: 30%;
+    .buttoncontainer {
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-      border-radius: 0 20px 20px 0;
+      justify-content: space-around;
+      margin: 5px -20px 5px 0;
 
-      p {
-        background-color: transparent;
-        font-weight: 600;
-        font-size: 80%;
-        color: ${colors.almostwhite};
-      }
+      .delete,
       .view {
-        height: 100%;
-        width: 100%;
-        border-top: 2px ${colors.almostwhite} solid;
         background-color: ${colors.orange};
-        transition: 0.5s;
-        border-radius: 0 0 20px 0;
-        cursor: pointer;
-        border: 2px ${colors.almostwhite} solid 0;
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition-timing-function: ease-out;
+        transition: 0.2s;
+
         :hover {
           background-color: ${colors.darkorange};
+          transform: translate(0, 1px);
         }
-        a {
-          height: 100%;
-          width: 100%;
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
+      }
+      .view {
+        img {
+          height: 23px;
+          width: 23px;
         }
       }
       .delete {
-        background-color: ${colors.orange};
-        height: 100%;
-        width: 100%;
-        border-radius: 0 20px 0 0;
-        transition: 0.5s;
-        cursor: pointer;
-        :hover {
-          background-color: ${colors.darkorange};
+        img {
+          height: 20px;
+          width: 20px;
         }
       }
     }
@@ -198,14 +206,29 @@ export default function Profile(props) {
               {userRecipe.map((recipe) => {
                 return (
                   <>
-                    <div className="savedRecipes">
-                      <div
-                        className="imgContainer"
-                        style={{
-                          backgroundImage: 'url(' + recipe.img + ')',
-                        }}
-                      >
+                    <div css={container2(recipe)}>
+                      <div className="backgroundContainer">
                         <div>
+                          <p>{userRecipe.indexOf(recipe) + 1}</p>
+                        </div>
+                      </div>
+                      <div className="frontContainer">
+                        <div>
+                          <div className="title">
+                            <h2>{recipe.name}</h2>
+                          </div>
+                          <div className="text">
+                            <p>
+                              We hope you enjoyed cooking this recipe from Food
+                              Look {props.user.userName}.
+                              <br /> This aswell as the other recipes are super
+                              easy to make.
+                              <br /> If you want to make it again just hit the
+                              visit Button.
+                            </p>
+                          </div>
+                        </div>
+                        <div className="buttoncontainer">
                           <div
                             className="delete"
                             onClick={() => {
@@ -213,16 +236,16 @@ export default function Profile(props) {
                               handleDelte(recipe.recipe_id, recipe.user_id);
                             }}
                           >
-                            <p>Delete</p>
+                            <img src="delete2.svg" />
                           </div>
 
-                          <div className="view">
-                            <Link href={'/' + recipe.recipe_id}>
-                              <a>
-                                <p>View</p>
-                              </a>
-                            </Link>
-                          </div>
+                          <Link href={'/' + recipe.recipe_id}>
+                            <a>
+                              <div className="view">
+                                <img src="link.svg" />
+                              </div>
+                            </a>
+                          </Link>
                         </div>
                       </div>
                     </div>

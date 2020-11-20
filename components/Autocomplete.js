@@ -1,7 +1,15 @@
 import Autosuggest from 'react-autosuggest';
 import { css } from '@emotion/core';
 
-const autosuggest = css`
+const autosuggest = (
+  top,
+  left,
+  width = '240px',
+  padding = '10px 20px ',
+  borderTop = '0',
+  borderRadius = '0 0 20px 20px',
+  position = 'absolute',
+) => css`
   .react-autosuggest__suggestions-list {
     margin: 0;
     padding: 0;
@@ -9,16 +17,15 @@ const autosuggest = css`
   }
   .react-autosuggest__suggestions-container--open {
     display: block;
-    position: absolute;
-    left: 31px;
-    top: 122px;
-    width: 240px;
+    position: ${position};
+    top: ${top};
+    left: ${left};
+    width: ${width};
     border: 1px solid #aaa;
-    border-top: 0;
+    border-top: ${borderTop};
     background-color: white;
-    padding: 20px;
-
-    border-radius: 0 0 20px 20px;
+    padding: 20;
+    border-radius: ${borderRadius};
     @media (max-width: 1000px) {
       left: 11px;
       top: 120px;
@@ -27,7 +34,7 @@ const autosuggest = css`
 
   .react-autosuggest__suggestion {
     cursor: pointer;
-    padding: 10px 20px;
+    padding: ${padding};
   }
 
   .react-autosuggest__input--focused {
@@ -40,11 +47,11 @@ const autosuggest = css`
 `;
 
 export default function Autocomplete(props) {
-  const ing = props.mainIngArray.map((x) => x.name);
+  const ingNameList = props.ingArray.map((ing) => ing.name);
   const getSuggestions = (value) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
-    return ing.filter(
+    return ingNameList.filter(
       (lang) => lang.toLowerCase().slice(0, inputLength) === inputValue,
     );
   };
@@ -54,7 +61,17 @@ export default function Autocomplete(props) {
   };
 
   return (
-    <div css={autosuggest}>
+    <div
+      css={autosuggest(
+        props.top,
+        props.left,
+        props.width,
+        props.padding,
+        props.borderTop,
+        props.borderRadius,
+        props.position,
+      )}
+    >
       <header>
         <Autosuggest
           suggestions={props.suggestions}
@@ -67,9 +84,9 @@ export default function Autocomplete(props) {
           renderSuggestion={(suggestion) => <span>{suggestion}</span>}
           inputProps={{
             placeholder: 'Add an ingredient',
-            value: props.newUserIng,
+            value: props.input,
             onChange: (e, { newValue }) => {
-              props.setNewUserIng(newValue);
+              props.setInput(newValue);
             },
           }}
         />

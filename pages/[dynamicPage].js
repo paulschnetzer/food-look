@@ -6,7 +6,8 @@ import { css } from '@emotion/core';
 import { colors } from '../util/colors';
 import nextCookies from 'next-cookies';
 import { isSessionTokenValid } from '../util/auth';
-import { getUserBySessionToken } from '../util/database';
+import { getUserBySessionToken, getUserRecipe } from '../util/database';
+import { useState } from 'react';
 
 const container1 = css`
   display: grid;
@@ -82,8 +83,11 @@ const container1 = css`
       cursor: pointer;
       transition: 0.2s;
       transition-timing-function: ease-out;
-      img {
+      img[src='checked.svg'] {
         height: 30px;
+      }
+      img[src='addRecipe.svg'] {
+        height: 40px;
       }
       :hover {
         background-color: ${colors.darkorange};
@@ -181,6 +185,14 @@ function Spices(props) {
 }
 
 export default function ProductPage(props) {
+  function isRecipeSaved() {
+    const savedRecipeIds = props.userRecipes.map(
+      (userRecipe) => userRecipe.recipe_id,
+    );
+    return savedRecipeIds.includes(parseInt(props.id));
+  }
+  const [recipeSavedStatus, setRecipeSavedStatus] = useState(isRecipeSaved());
+
   const food = props.foodDataBase.find((currentRecipe) => {
     if (currentRecipe.id.toString() === props.id) {
       return true;
@@ -189,6 +201,7 @@ export default function ProductPage(props) {
   });
   async function handleUpload(e) {
     e.preventDefault();
+    setRecipeSavedStatus(true);
 
     const response = await fetch('/api/dynamicpage', {
       method: 'POST',
@@ -214,11 +227,14 @@ export default function ProductPage(props) {
         >
           {props.loggedIn ? (
             <button onClick={handleUpload}>
-              <img src="save.svg" alt="Logo" />
+              <img
+                src={recipeSavedStatus ? 'checked.svg' : 'addRecipe.svg'}
+                alt="Logo"
+              />
             </button>
           ) : (
             <button className="noAnimation">
-              <img src="save.svg" alt="Logo" />
+              <img src="addRecipe.svg" alt="Logo" />
             </button>
           )}
         </div>
@@ -259,9 +275,12 @@ export async function getServerSideProps(context) {
   const { session: token } = nextCookies(context);
   const loggedIn = await isSessionTokenValid(token);
   const foodDataBase = await getRecipesForProductPage();
+
   let user = false;
+  let userRecipes = [];
   if (loggedIn) {
     user = await getUserBySessionToken(token);
+    userRecipes = await getUserRecipe(user.id);
   }
 
   return {
@@ -270,6 +289,7 @@ export async function getServerSideProps(context) {
       foodDataBase: foodDataBase,
       loggedIn: loggedIn,
       user: user,
+      userRecipes: userRecipes,
     },
   };
 }

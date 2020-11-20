@@ -137,7 +137,6 @@ export async function getIngredients() {
     SELECT * FROM ingredients
 
   `;
-
   return allingredient;
 }
 
@@ -266,4 +265,24 @@ WHERE
     }
     return reducedFoodArray;
   }, []);
+}
+
+export async function deleteRecipeFromJointTable(id) {
+  const deletedRecipe = await sql`
+  DELETE FROM
+recipes_ingredients_types
+WHERE
+recipes_ingredients_types.recipe_id = ${id}
+RETURNING *;`;
+  return deletedRecipe.map((s) => camelcaseKeys(s))[0];
+}
+
+export async function deleteRecipeFromRecipeTable(id) {
+  const deletedRecipe = await sql`
+   DELETE FROM
+    recipes
+      WHERE
+    recipes.id = ${id}
+    RETURNING *;`;
+  return deletedRecipe.map((s) => camelcaseKeys(s))[0];
 }

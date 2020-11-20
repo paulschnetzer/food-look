@@ -152,12 +152,13 @@ export default function Sidebar(props) {
       <div className="positionfixed">
         <form onSubmit={handleSubmit}>
           <Autocomplete
-            newUserIng={newUserIng}
-            setNewUserIng={setNewUserIng}
+            input={newUserIng}
+            setInput={setNewUserIng}
             suggestions={suggestions}
             setSuggestions={setSuggestions}
-            ingArray={props.ingArray}
-            mainIngArray={props.mainIngArray}
+            ingArray={props.mainIngArray}
+            top={'122px'}
+            left={'31px'}
           />
 
           <input type="submit" value="ADD" />
