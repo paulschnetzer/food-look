@@ -36,6 +36,7 @@ const container1 = css`
       margin-bottom: 20px;
       text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
       margin-top: 0;
+      text-align: center;
     }
     p {
       font-size: 90%;
@@ -43,6 +44,7 @@ const container1 = css`
       letter-spacing: 3px;
       word-spacing: 3px;
       text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+      text-align: center;
     }
   }
   .recipesGrid {
@@ -60,6 +62,10 @@ const container2 = (recipe) => css`
   grid-template-columns: 100px 600px 100px;
   grid-template-rows: 20px 200px 20px;
   margin: 50px 0px;
+  @media (max-width: 900px) {
+    grid-template-columns: 80vw;
+    grid-template-rows: 1fr;
+  }
 
   .backgroundContainer {
     grid-column: 1 / 3;
@@ -72,6 +78,9 @@ const container2 = (recipe) => css`
     border-radius: 10px;
 
     box-shadow: -5px -5px 10px #e8e8e8, 5px 5px 10px #e8e8e8;
+    @media (max-width: 900px) {
+      display: none;
+    }
     p {
       font-size: 300%;
       font-weight: 600;
@@ -91,12 +100,25 @@ const container2 = (recipe) => css`
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
       url('${recipe.img}');
     border-radius: 10px;
+    @media (max-width: 900px) {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      flex-direction: column;
+    }
     .title {
       margin-top: 30px;
       display: inline-block;
       width: fit-content;
       background-color: ${colors.almostwhite};
       border-radius: 0 10px 10px 0;
+      @media (max-width: 900px) {
+        background-color: hsla(216, 100%, 99%, 0.85);
+        margin: 10% 0;
+        width: 100%;
+        text-align: center;
+        border-radius: 10px;
+        transform: scale(0.8);
+      }
       h2 {
         display: inline-block;
         margin: 10px 20px;
@@ -110,12 +132,17 @@ const container2 = (recipe) => css`
     }
     .text {
       margin: 0 100px 10px 20px;
+      @media (max-width: 900px) {
+        margin: 0 10% 20px 10%;
+        font-size: 80%;
+      }
       p {
         font-size: 80%;
         line-height: 25px;
         letter-spacing: 2px;
         word-spacing: 2px;
         opacity: 90%;
+        margin-top: 0;
       }
     }
     .buttoncontainer {
@@ -123,6 +150,10 @@ const container2 = (recipe) => css`
       flex-direction: column;
       justify-content: space-around;
       margin: 5px -20px 5px 0;
+      @media (max-width: 900px) {
+        margin: 0 25px -25px 25px;
+        flex-direction: row;
+      }
 
       .delete,
       .view {

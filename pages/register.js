@@ -177,6 +177,7 @@ export default function Register(props) {
               <h2>Password</h2>
               <input
                 value={password}
+                type="password"
                 onChange={(e) => setPassword(e.currentTarget.value)}
               />
 

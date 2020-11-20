@@ -3,10 +3,11 @@ import { colors } from '../util/colors';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 const footer = (router) => css`
-  background-color: ${colors.darkorange};
+  background-color: ${colors.almostwhite};
+  border-top: 2px solid ${colors.almostblack};
   height: 160px;
   width: 100%;
-  color: ${colors.almostwhite};
+  color: ${colors.almostblack};
   display: grid;
   place-items: center;
   padding-left: ${router.pathname === '/' ? '350px' : '0px'};
