@@ -6,8 +6,13 @@ import { css } from '@emotion/core';
 import { colors } from '../util/colors';
 import nextCookies from 'next-cookies';
 import { isSessionTokenValid } from '../util/auth';
-import { getUserBySessionToken, getUserRecipe } from '../util/database';
+import {
+  getUserBySessionToken,
+  getUserRecipe,
+  getComment,
+} from '../util/database';
 import { useState } from 'react';
+import CommentSection from '../components/CommentSection';
 
 const container1 = css`
   display: grid;
@@ -265,6 +270,11 @@ export default function ProductPage(props) {
         </div>
         <h1>{food.name}</h1>
       </div>
+      <CommentSection
+        user={props.user}
+        id={props.id}
+        userComments={props.userComments}
+      />
       <Footer />
     </>
   );
@@ -275,6 +285,7 @@ export async function getServerSideProps(context) {
   const { session: token } = nextCookies(context);
   const loggedIn = await isSessionTokenValid(token);
   const foodDataBase = await getRecipesForProductPage();
+  const userComments = await getComment(context.query.dynamicPage);
 
   let user = false;
   let userRecipes = [];
@@ -290,6 +301,7 @@ export async function getServerSideProps(context) {
       loggedIn: loggedIn,
       user: user,
       userRecipes: userRecipes,
+      userComments: userComments,
     },
   };
 }

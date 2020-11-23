@@ -286,3 +286,31 @@ export async function deleteRecipeFromRecipeTable(id) {
     RETURNING *;`;
   return deletedRecipe.map((s) => camelcaseKeys(s))[0];
 }
+
+export async function insertComment(comment, recipeId, userId, date) {
+  const recipe = await sql`
+   INSERT INTO comments
+   (comment, recipe_id, user_id, upload_date)
+   VALUES
+   (${comment},${recipeId}, ${userId},${date})
+   RETURNING *;`;
+  return recipe.map((s) => camelcaseKeys(s))[0];
+}
+
+export async function getComment(recipeId) {
+  const users = await sql`
+    SELECT
+    comments.upload_date,
+    users.user_name,
+    comments.comment
+    FROM
+      users,
+      recipes,
+      comments
+    WHERE
+    comments.recipe_id = ${recipeId} AND
+    comments.recipe_id = recipes.id AND
+    users.id=comments.user_id;
+  `;
+  return users;
+}
