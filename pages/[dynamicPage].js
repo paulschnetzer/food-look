@@ -190,6 +190,8 @@ function Spices(props) {
 }
 
 export default function ProductPage(props) {
+  const [userComments, setUserComments] = useState(props.userComments);
+  const [comment, setComment] = useState([]);
   function isRecipeSaved() {
     const savedRecipeIds = props.userRecipes.map(
       (userRecipe) => userRecipe.recipe_id,
@@ -220,6 +222,7 @@ export default function ProductPage(props) {
     });
     const { success } = await response.json();
   }
+
   return (
     <>
       <Header loggedIn={props.loggedIn} />{' '}
@@ -263,7 +266,7 @@ export default function ProductPage(props) {
               <Link href={food.link}>
                 <a>recepy</a>
               </Link>
-            }{' '}
+            }
             as giadance but reber, only {food.ingredients.length} ingredients
             are really neccercary &#128521;{' '}
           </p>
@@ -273,7 +276,11 @@ export default function ProductPage(props) {
       <CommentSection
         user={props.user}
         id={props.id}
-        userComments={props.userComments}
+        userComments={userComments}
+        setUserComments={setUserComments}
+        comment={comment}
+        setComment={setComment}
+        loggedIn={props.loggedIn}
       />
       <Footer />
     </>

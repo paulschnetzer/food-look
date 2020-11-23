@@ -311,6 +311,7 @@ export async function getComment(recipeId) {
     comments.recipe_id = ${recipeId} AND
     comments.recipe_id = recipes.id AND
     users.id=comments.user_id;
+
   `;
   return users;
 }
