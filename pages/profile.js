@@ -224,7 +224,7 @@ export default function Profile(props) {
         {props.userRecipes.length === 0 ? (
           <div className="textcontainer">
             <h1>Hi {props.user.userName}! </h1>
-            <p>You dont have any new recipes.</p>
+            <p>You don't have any new recipes.</p>
             <p>Check out our awesome Recipes and save some.</p>
           </div>
         ) : (
@@ -252,7 +252,7 @@ export default function Profile(props) {
                             <p>
                               We hope you enjoyed cooking this recipe from Food
                               Look {props.user.userName}.
-                              <br /> This aswell as the other recipes are super
+                              <br /> This as well as the other recipes are super
                               easy to make.
                               <br /> If you want to make it again just hit the
                               visit Button.

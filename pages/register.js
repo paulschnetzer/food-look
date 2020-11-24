@@ -136,7 +136,7 @@ export default function Register(props) {
                           : 'none',
                     }}
                   >
-                    SIGN Up
+                    SIGN UP
                   </h1>
                 </a>
               </Link>

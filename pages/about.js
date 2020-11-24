@@ -113,13 +113,12 @@ export default function Home(props) {
             <h2>What is Food Look?</h2>
             <p>
               Food Look helps you to find your midweek meals. We have a limited
-              amound of recipes that we consinder easy, quick, affordable.{' '}
-              <br />
-              Just type in you ingrgridients in the seachbar and find out what
+              amount of recipes that we consider easy, quick, affordable. <br />
+              Just type in your ingredients in the search bar and find out what
               you can make out of it.
               <br />
-              We broke all the recepies down to its core ingrgridients to show
-              you what you can with as little ingrgridients as possible. Making
+              We broke all the recipes down to its core ingredients to show you
+              what you can with as little ingredients as possible. Making
               cooking easy and simple.
             </p>
           </div>

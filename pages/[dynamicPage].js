@@ -183,7 +183,7 @@ function Spices(props) {
     <div>
       <p>
         Sure if you have {props.food.spices.join(', ')} laying around this would
-        add some more flavor to it but its not essetial.
+        add some more flavour to it but it's not essential.
       </p>
     </div>
   );
@@ -248,7 +248,7 @@ export default function ProductPage(props) {
         </div>
         <div className="textbox">
           <p>
-            If we are honest with our selfs this recipe only need{' '}
+            If we are honest with our self's this recipe only needs{' '}
             <b>{food.ingredients.length}</b> real ingredients. All recipes here
             are very basic in its core, including this one.
           </p>
@@ -267,8 +267,8 @@ export default function ProductPage(props) {
                 <a>recepy</a>
               </Link>
             }
-            as giadance but reber, only {food.ingredients.length} ingredients
-            are really neccercary &#128521;{' '}
+            as guidance but remember, only {food.ingredients.length} ingredients
+            are really necessary &#128521;{' '}
           </p>
         </div>
         <h1>{food.name}</h1>

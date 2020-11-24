@@ -8,10 +8,7 @@ export default function Logout() {
 
 export async function getServerSideProps(context) {
   const { session: token } = nextCookies(context);
-
   await deleteSessionByToken(token);
-
-  // Remove the cookie
   context.res.setHeader(
     'Set-Cookie',
     cookie.serialize('session', '', {
