@@ -15,5 +15,4 @@ This is a full-stack application that helps you to pick the right midweek dinner
 2. React.js (with Hooks)
 3. PostgreSQL with API Routes
 4. HTML/CSS
-5. Tests: Cypress and Jest
-6. Emotion 
+5. Emotion 
