@@ -3,10 +3,10 @@
 ## Description
 
 This is a full-stack application that helps you to pick the right midweek dinner.
-..* Has a filter function where you can search for recipes based on their ingredients.
-..* User Registration and Login(get the ability to comment and save favorite Recipes)
-..* An Admin Page where you can add and delete Recipes from the Database/Website
-..* fully responsive for Desktop or Smartphone.
++ Has a filter function where you can search for recipes based on their ingredients.
++ User Registration and Login(get the ability to comment and save favorite Recipes)
++ An Admin Page where you can add and delete Recipes from the Database/Website
++ fully responsive for Desktop or Smartphone.
 
 
 ## Technologies
