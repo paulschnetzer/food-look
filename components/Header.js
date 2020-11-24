@@ -13,19 +13,19 @@ const header = (router) => css`
   align-items: center;
   background-color: ${colors.almostwhite};
   a[href='/'] {
-    display: ${router.pathname === '/' ? 'none' : 'block'};
+    display: ${router.pathname === '/' ? 'none' : 'visible'};
   }
   a[href='/login'] {
-    display: ${router.pathname === '/login' ? 'none' : 'block'};
+    display: ${router.pathname === '/login' ? 'none' : 'visible'};
   }
   a[href='/register'] {
-    display: ${router.pathname === '/register' ? 'none' : 'block'};
+    display: ${router.pathname === '/register' ? 'none' : 'visible'};
   }
   a[href='/about'] {
-    display: ${router.pathname === '/about' ? 'none' : 'block'};
+    display: ${router.pathname === '/about' ? 'none' : 'visible'};
   }
   a[href='/profile'] {
-    display: ${router.pathname === '/profile' ? 'none' : 'block'};
+    display: ${router.pathname === '/profile' ? 'none' : 'visible'};
   }
 
   .toggleButton {
