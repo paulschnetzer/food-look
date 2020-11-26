@@ -47,7 +47,7 @@ export default function Footer() {
         <div className="iconbar">
           <div>
             <Link href={'https://github.com/paulschnetzer'}>
-              <a>
+              <a data-cy={'footer-github-link'}>
                 <img
                   src="github.svg"
                   alt="Girl in a jacket"
@@ -61,7 +61,7 @@ export default function Footer() {
             <Link
               href={'https://www.linkedin.com/in/paul-schnetzer-8a8b87198/'}
             >
-              <a>
+              <a data-cy={'footer-linkedin-link'}>
                 <img
                   src="linkedin.svg"
                   alt="Girl in a jacket"
@@ -77,7 +77,7 @@ export default function Footer() {
                 'https://mail.google.com/mail/?view=cm&source=mailto&to=paulschnetzer98@gmail.com'
               }
             >
-              <a>
+              <a data-cy={'footer-email-link'}>
                 <img
                   src="email.svg"
                   alt="Girl in a jacket"

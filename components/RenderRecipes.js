@@ -53,7 +53,7 @@ export default function RenderRecipes(props) {
   return props.matchingIngObj.map((ing) => {
     return (
       <Link href={'/' + ing.id}>
-        <a>
+        <a data-cy={'index-render-recipes-link' + ing.id}>
           <div key={ing.id} css={render}>
             <div
               className="imgcontainer"

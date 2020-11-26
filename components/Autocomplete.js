@@ -71,6 +71,7 @@ export default function Autocomplete(props) {
         props.borderRadius,
         props.position,
       )}
+      data-cy={'sidebar-searchbar'}
     >
       <header>
         <Autosuggest

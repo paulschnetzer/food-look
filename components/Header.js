@@ -2,7 +2,6 @@
 import { colors } from '../util/colors';
 import { css } from '@emotion/core';
 import Link from 'next/link';
-import Popup from 'reactjs-popup';
 import { useWindowWidth } from '@react-hook/window-size';
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
@@ -180,39 +179,12 @@ function LinkLogin(props) {
 function LinkSavedRecipes(props) {
   return (
     <Link href={`${props.redirectPage}`}>
-      <a className={props.animation}>
+      <a className={props.animation} data-cy={'header-saved-recipes-link'}>
         <p>SAVED RECIPES</p>
       </a>
     </Link>
   );
 }
-
-const Tooltip = () => (
-  <Popup
-    trigger={() => (
-      <a className="noanimation">
-        <p>SAVED RECIPES</p>
-      </a>
-    )}
-    position="bottom"
-    closeOnDocumentClick
-  >
-    <div
-      style={{
-        margin: '-10px 0 0 -12px',
-        width: '180px',
-        textAlign: 'center',
-        background: `${colors.darkorange}`,
-        borderRadius: '0 0 25px 25px',
-        color: `${colors.almostwhite}`,
-        padding: '10px 10px 15px 10px ',
-        opacity: '90%',
-      }}
-    >
-      Login required
-    </div>
-  </Popup>
-);
 export default function Header(props) {
   const router = useRouter();
   const [dropDownNav, setDropDownNav] = useState(false);
@@ -241,12 +213,12 @@ export default function Header(props) {
       >
         <div css={navbar} className="navBar">
           <Link href="/">
-            <a className="animation">
+            <a className="animation" data-cy={'header-home-link'}>
               <p>HOME</p>
             </a>
           </Link>
           <Link href="/about">
-            <a className="animation">
+            <a className="animation" data-cy={'header-about-link'}>
               <p>ABOUT US</p>
             </a>
           </Link>
@@ -257,20 +229,31 @@ export default function Header(props) {
               redirectPage={'/profile'}
             />
           ) : (
-            <Tooltip />
+            <LinkSavedRecipes
+              animation={'animation'}
+              redirectPage={'/register'}
+            />
           )}
           {adminPassed ? (
             <Link href="/adminpage">
-              <a className="animation">
+              <a className="animation" data-cy={'header-admin-link'}>
                 <p>ADMIN</p>
               </a>
             </Link>
           ) : null}
 
           {!loggedInPassed ? null : props.loggedIn ? (
-            <LinkLogin loginstatus={'LOGOUT'} redirectPage={'/logout'} />
+            <LinkLogin
+              loginstatus={'LOGOUT'}
+              redirectPage={'/logout'}
+              data-cy={'header-logout-link'}
+            />
           ) : (
-            <LinkLogin loginstatus={'LOGIN'} redirectPage={'/login'} />
+            <LinkLogin
+              loginstatus={'LOGIN'}
+              redirectPage={'/login'}
+              data-cy={'header-login-link'}
+            />
           )}
         </div>
       </CSSTransition>

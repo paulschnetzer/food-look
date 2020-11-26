@@ -234,16 +234,20 @@ export default function ProductPage(props) {
           className="picture"
         >
           {props.loggedIn ? (
-            <button onClick={handleUpload}>
+            <button onClick={handleUpload} data-cy={'dynamic-page-add-buttom'}>
               <img
                 src={recipeSavedStatus ? 'checked.svg' : 'addRecipe.svg'}
                 alt="Logo"
               />
             </button>
           ) : (
-            <button className="noAnimation">
-              <img src="addRecipe.svg" alt="Logo" />
-            </button>
+            <Link href="/register">
+              <a>
+                <button data-cy={'dynamic-page-add-buttom'}>
+                  <img src="addRecipe.svg" alt="Logo" />
+                </button>
+              </a>
+            </Link>
           )}
         </div>
         <div className="textbox">
