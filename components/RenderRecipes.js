@@ -61,7 +61,7 @@ export default function RenderRecipes(props) {
                 backgroundImage: 'url(' + ing.image + ')',
               }}
             >
-              <p>{props.simlifiedArray.length + '/' + ing.ing.length}</p>
+              <p>{props.easierUserIngArray.length + '/' + ing.ing.length}</p>
             </div>
             <p>{ing.name}</p>
           </div>

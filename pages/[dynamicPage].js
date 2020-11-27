@@ -13,6 +13,7 @@ import {
 } from '../util/database';
 import { useState } from 'react';
 import CommentSection from '../components/CommentSection';
+import { isRecipeSaved } from '../util/helperFunctions';
 
 const container1 = css`
   display: grid;
@@ -192,14 +193,10 @@ function Spices(props) {
 export default function ProductPage(props) {
   const [userComments, setUserComments] = useState(props.userComments);
   const [comment, setComment] = useState([]);
-  function isRecipeSaved() {
-    const savedRecipeIds = props.userRecipes.map(
-      (userRecipe) => userRecipe.recipe_id,
-    );
-    return savedRecipeIds.includes(parseInt(props.id));
-  }
-  const [recipeSavedStatus, setRecipeSavedStatus] = useState(isRecipeSaved());
-
+  const [recipeSavedStatus, setRecipeSavedStatus] = useState(
+    isRecipeSaved(props.userRecipes, props.id),
+  );
+  console.log(props.userRecipes);
   const food = props.foodDataBase.find((currentRecipe) => {
     if (currentRecipe.id.toString() === props.id) {
       return true;

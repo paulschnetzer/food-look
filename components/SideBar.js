@@ -131,21 +131,14 @@ let number = 0;
 export default function Sidebar(props) {
   const [newUserIng, setNewUserIng] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-
   function handleSubmit(e) {
     e.preventDefault();
-    const ingExists = props.userIngArray.some(
-      (item) => item.name === newUserIng,
-    );
-    if (!ingExists) {
-      props.setUserIngArray([
-        ...props.userIngArray,
-        { ing: newUserIng, id: number++ },
-      ]);
-      setNewUserIng('');
-    }
+    props.setUserIngArray([
+      ...props.userIngArray,
+      { ing: newUserIng, id: number++ },
+    ]);
+    setNewUserIng('');
   }
-
   return (
     <div css={sidebar}>
       <img src="logo.svg" alt="Logo" />
@@ -156,7 +149,7 @@ export default function Sidebar(props) {
             setInput={setNewUserIng}
             suggestions={suggestions}
             setSuggestions={setSuggestions}
-            ingArray={props.mainIngArray}
+            ingArray={props.dbMainIngArray}
             top={'122px'}
             left={'31px'}
           />

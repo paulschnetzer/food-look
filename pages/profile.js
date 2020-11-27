@@ -9,6 +9,7 @@ import Head from 'next/head';
 import { isSessionTokenValid } from '../util/auth';
 import Header from '../components/Header';
 import { getUserBySessionToken, getUserRecipe } from '../util/database';
+import { handleDelteState } from '../util/helperFunctions';
 import { css } from '@emotion/core';
 import { colors } from '../util/colors';
 import React, { useState } from 'react';
@@ -189,6 +190,7 @@ const container2 = (recipe) => css`
 `;
 
 export default function Profile(props) {
+  const [userRecipes, setUserRecipes] = useState(props.userRecipes);
   async function handleDelte(recipeId, userId) {
     const response = await fetch('/api/profile', {
       method: 'POST',
@@ -203,17 +205,8 @@ export default function Profile(props) {
     const { success } = await response.json();
     console.log(success);
   }
-  const [userRecipe, setUserRecipe] = useState(props.userRecipes);
-  function handleDelteState(recipe_id) {
-    console.log(recipe_id);
-    const newUserRecipe = userRecipe;
-    const arraydelete = newUserRecipe.filter(
-      (recipe) => recipe.recipe_id !== recipe_id,
-    );
+  console.log(userRecipes);
 
-    setUserRecipe(arraydelete);
-  }
-  console.log(userRecipe);
   return (
     <>
       <Head>
@@ -234,13 +227,13 @@ export default function Profile(props) {
               <p>Here are your favorite Recipes</p>{' '}
             </div>
             <div className="recipesGrid">
-              {userRecipe.map((recipe) => {
+              {userRecipes.map((recipe) => {
                 return (
                   <>
                     <div css={container2(recipe)}>
                       <div className="backgroundContainer">
                         <div>
-                          <p>{userRecipe.indexOf(recipe) + 1}</p>
+                          <p>{userRecipes.indexOf(recipe) + 1}</p>
                         </div>
                       </div>
                       <div className="frontContainer">
@@ -263,7 +256,9 @@ export default function Profile(props) {
                           <div
                             className="delete"
                             onClick={() => {
-                              handleDelteState(recipe.recipe_id);
+                              setUserRecipes(
+                                handleDelteState(recipe.recipe_id, userRecipes),
+                              );
                               handleDelte(recipe.recipe_id, recipe.user_id);
                             }}
                           >

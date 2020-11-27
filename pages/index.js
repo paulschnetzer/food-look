@@ -13,6 +13,7 @@ import {
 import {
   findMatchingObjectBasedOnIng,
   transformTheIngArray,
+  deletesDublications,
 } from '../util/helperFunctions';
 
 const grid = css`
@@ -37,16 +38,13 @@ const grid = css`
 
 export default function Home(props) {
   const [userIngArray, setUserIngArray] = useState([]);
-  const simlifiedArray = transformTheIngArray(userIngArray);
+  const easierUserIngArray = transformTheIngArray(userIngArray);
   const matchingIngObj = findMatchingObjectBasedOnIng(
     props.foodDataBase,
-    simlifiedArray,
+    easierUserIngArray,
   );
-  const ingArray = props.allIng.map((ing) => ing.name);
-  const uniq = {};
-  const mainIngArray = props.mainIng.filter(
-    (ing) => !uniq[ing.name] && (uniq[ing.name] = true),
-  );
+  const dbIngArray = props.allIngFromDB.map((ing) => ing.name);
+  const dbMainIngArray = deletesDublications(props.mainIng);
 
   return (
     <Layout
@@ -54,13 +52,13 @@ export default function Home(props) {
       setUserIngArray={setUserIngArray}
       loggedIn={props.loggedIn}
       admin={props.admin}
-      ingArray={ingArray}
-      mainIngArray={mainIngArray}
+      dbIngArray={dbIngArray}
+      dbMainIngArray={dbMainIngArray}
     >
       <div css={grid}>
         <RenderRecipes
           matchingIngObj={matchingIngObj}
-          simlifiedArray={simlifiedArray}
+          easierUserIngArray={easierUserIngArray}
         />
       </div>
     </Layout>
@@ -72,7 +70,7 @@ export async function getServerSideProps(context) {
   const foodDataBase = await getRecipesForIndex();
   const { session: token } = nextCookies(context);
   let admin = await getUserBySessionToken(token);
-  const allIng = await getIngredients();
+  const allIngFromDB = await getIngredients();
   const mainIng = await getMainIngredients();
   const loggedIn = await isSessionTokenValid(token);
   if (admin === undefined || admin.userRoleId !== 1) {
@@ -86,7 +84,7 @@ export async function getServerSideProps(context) {
       foodDataBase: foodDataBase,
       loggedIn: loggedIn,
       admin: admin,
-      allIng: allIng,
+      allIngFromDB: allIngFromDB,
       mainIng: mainIng,
     },
   };

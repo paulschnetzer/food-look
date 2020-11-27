@@ -3,6 +3,7 @@
 
 import { css } from '@emotion/core';
 import { colors } from '../util/colors';
+import { handleDelete } from '../util/helperFunctions';
 
 const renderIng = css`
   display: flex;
@@ -37,15 +38,7 @@ const renderIng = css`
 `;
 
 export default function RenderIng(props) {
-  function handleDelte(id) {
-    const newUserIngArray = [...props.userIngArray];
-    const arraydelete = newUserIngArray.filter(
-      (deletedIng) => deletedIng.id !== id,
-    );
-
-    props.setUserIngArray(arraydelete);
-  }
-
+  console.log(props.userIngArray);
   return props.userIngArray.map((ing) => {
     return (
       <div css={renderIng} key={ing.id}>
@@ -57,7 +50,9 @@ export default function RenderIng(props) {
             viewBox="0 0 512 512"
             width="512pt"
             xmlns="http://www.w3.org/2000/svg"
-            onClick={() => handleDelte(ing.id)}
+            onClick={() =>
+              props.setUserIngArray(handleDelete(ing.id, props.userIngArray))
+            }
           >
             <path d="m256 512c-141.160156 0-256-114.839844-256-256s114.839844-256 256-256 256 114.839844 256 256-114.839844 256-256 256zm0-475.429688c-120.992188 0-219.429688 98.4375-219.429688 219.429688s98.4375 219.429688 219.429688 219.429688 219.429688-98.4375 219.429688-219.429688-98.4375-219.429688-219.429688-219.429688zm0 0" />
             <path d="m347.429688 365.714844c-4.679688 0-9.359376-1.785156-12.929688-5.359375l-182.855469-182.855469c-7.144531-7.144531-7.144531-18.714844 0-25.855469 7.140625-7.140625 18.714844-7.144531 25.855469 0l182.855469 182.855469c7.144531 7.144531 7.144531 18.714844 0 25.855469-3.570313 3.574219-8.246094 5.359375-12.925781 5.359375zm0 0" />

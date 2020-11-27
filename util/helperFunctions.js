@@ -13,6 +13,41 @@ export function findMatchingObjectBasedOnIng(arrayOne, arrayTwo) {
     arrayTwo.every((item2) => item1.ing.includes(item2)),
   );
 }
+export function deletesDublications(mainIng) {
+  const uniq = {};
+  return mainIng.filter((ing) => !uniq[ing.name] && (uniq[ing.name] = true));
+}
+
+export function handleDelete(id, userIngArray) {
+  const newUserIngArray = [...userIngArray];
+  return newUserIngArray.filter((deletedIng) => deletedIng.id !== id);
+}
+
+export function getSuggestions(value, ingArray) {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+  const ingNameList = ingArray.map((ing) => ing.name);
+  return ingNameList.filter(
+    (lang) => lang.toLowerCase().slice(0, inputLength) === inputValue,
+  );
+}
+
+export function getDate() {
+  return new Date().toLocaleDateString('UTC', {
+    day: 'numeric',
+    year: 'numeric',
+    month: 'numeric',
+  });
+}
+
+export function isRecipeSaved(userRecipes, recipeId) {
+  const savedRecipeIds = userRecipes.map((userRecipe) => userRecipe.recipe_id);
+  return savedRecipeIds.includes(parseInt(recipeId));
+}
+
+export function handleDelteState(recipe_id, userRecipes) {
+  return userRecipes.filter((recipe) => recipe.recipe_id !== recipe_id);
+}
 
 // let x=foodArray.reduce((reducedFoodArray, recipeIng)=>{
 

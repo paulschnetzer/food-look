@@ -1,6 +1,6 @@
 import Autosuggest from 'react-autosuggest';
 import { css } from '@emotion/core';
-
+import { getSuggestions } from '../util/helperFunctions';
 const autosuggest = (
   top,
   left,
@@ -47,19 +47,10 @@ const autosuggest = (
 `;
 
 export default function Autocomplete(props) {
-  const ingNameList = props.ingArray.map((ing) => ing.name);
-  const getSuggestions = (value) => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-    return ingNameList.filter(
-      (lang) => lang.toLowerCase().slice(0, inputLength) === inputValue,
-    );
-  };
-
   const onSuggestionsFetchRequested = ({ value }) => {
-    props.setSuggestions(getSuggestions(value));
+    props.setSuggestions(getSuggestions(value, props.ingArray));
   };
-
+  console.log(props.ingArray, props.suggestions);
   return (
     <div
       css={autosuggest(

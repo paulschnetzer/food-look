@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/core';
 import { colors } from '../util/colors';
+import { getDate } from '../util/helperFunctions';
 import Link from 'next/link';
 const commentSection = (x) => css`
   display: grid;
@@ -121,17 +122,12 @@ const oldComments = (x) => css`
     }
   }
 `;
-const date = new Date().toLocaleDateString('UTC', {
-  day: 'numeric',
-  year: 'numeric',
-  month: 'numeric',
-});
+
 export default function CommentSection(props) {
   const [comment, setComment] = useState([]);
 
   async function handleUpload(e) {
     e.preventDefault();
-
     const response = await fetch('/api/commentSection', {
       method: 'POST',
       headers: {
@@ -140,7 +136,7 @@ export default function CommentSection(props) {
       body: JSON.stringify({
         recipeId: parseInt(props.id),
         userId: props.user.id,
-        date: date,
+        date: getDate(),
         comment: comment,
       }),
     });
@@ -150,7 +146,7 @@ export default function CommentSection(props) {
     props.setUserComments([
       ...props.userComments,
       {
-        upload_date: date,
+        upload_date: getDate(),
         user_name: props.user.userName,
         comment: comment,
       },

@@ -23,8 +23,6 @@ export default async function handler(request, response) {
     typeof (await getUserByUsername(username)) !== 'undefined';
 
   if (usernameAlreadyTaken) {
-    // TODO: Send back a full error message here
-    // HTTP status code: 409 Conflict
     return response.status(409).send({ success: false });
   }
   try {

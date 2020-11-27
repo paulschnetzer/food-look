@@ -163,7 +163,7 @@ export default function Profile(props) {
               setInput={setNewIngredient}
               suggestions={suggestions}
               setSuggestions={setSuggestions}
-              ingArray={props.allIng}
+              ingArray={props.allIngFromDB}
               top={'0'}
               left={'0'}
               width={'164px'}
@@ -210,7 +210,7 @@ export async function getServerSideProps(context) {
   const { getRecipesForIndex } = await import('../util/database');
   const foodDataBase = await getRecipesForIndex();
   const { getIngredients } = await import('../util/database');
-  const allIng = await getIngredients();
+  const allIngFromDB = await getIngredients();
 
   if (!(await isSessionTokenValid(token)) || user.userRoleId !== 1) {
     return {
@@ -221,5 +221,11 @@ export async function getServerSideProps(context) {
     };
   }
 
-  return { props: { user: user, foodDataBase: foodDataBase, allIng: allIng } };
+  return {
+    props: {
+      user: user,
+      foodDataBase: foodDataBase,
+      allIngFromDB: allIngFromDB,
+    },
+  };
 }

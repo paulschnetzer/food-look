@@ -15,8 +15,8 @@ export default function Layout(props) {
       <Sidebar
         userIngArray={props.userIngArray}
         setUserIngArray={props.setUserIngArray}
-        ingArray={props.ingArray}
-        mainIngArray={props.mainIngArray}
+        dbIngArray={props.dbIngArray}
+        dbMainIngArray={props.dbMainIngArray}
       />
 
       <main>{props.children}</main>
