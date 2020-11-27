@@ -91,6 +91,7 @@ export default function Profile(props) {
     });
     const { success } = await response.json();
     console.log(success);
+    window.location.reload();
   }
   async function handleDelete(id) {
     const response = await fetch('/api/deleteRecipe', {
@@ -104,6 +105,7 @@ export default function Profile(props) {
     });
     const { success } = await response.json();
     console.log(success);
+    window.location.reload();
   }
   function handleDeleteIng(id) {
     const deletedIngArray = ingredients.filter((ing) => {

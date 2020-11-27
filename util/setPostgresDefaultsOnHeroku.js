@@ -2,8 +2,7 @@ module.exports = function setPostgresDefaultsOnHeroku() {
   if (process.env.DATABASE_URL) {
     const url = require('url');
 
-    // Extract the connection information from the Heroku
-    // environment variable
+
     const { hostname, pathname, auth } = url.parse(process.env.DATABASE_URL);
 
     const [username, password] = auth.split(':');
