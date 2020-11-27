@@ -49,16 +49,54 @@ export function handleDelteState(recipe_id, userRecipes) {
   return userRecipes.filter((recipe) => recipe.recipe_id !== recipe_id);
 }
 
-// let x=foodArray.reduce((reducedFoodArray, recipeIng)=>{
+export function indexReducer(recipes) {
+  return recipes.reduce((reducedFoodArray, recipeIng) => {
+    const matchingRecipe = reducedFoodArray.find(
+      (ing) => ing.name === recipeIng.recipe_name,
+    );
+    if (!matchingRecipe) {
+      reducedFoodArray.push({
+        id: recipeIng.recipe_id,
+        name: recipeIng.recipe_name,
+        image: recipeIng.recipe_img,
+        link: recipeIng.recipe_link,
+        ing: [recipeIng.ingredient_name],
+      });
+    } else {
+      matchingRecipe.ing.push(recipeIng.ingredient_name);
+    }
+    return reducedFoodArray;
+  }, []);
+}
 
-//   let matchingRecipe= reducedFoodArray.find((ing) =>
-//    (ing.name===recipeIng.recipe_name))
-//   if(!matchingRecipe){
-//   // delete recipeIng.ingredient_id;
-//   // recipeIng.ingredient_name=[recipeIng.ingredient_name]
-//   reducedFoodArray.push({id:recipeIng.recipe_id, name:recipeIng.recipe_name, img:recipeIng.recipe_img, link:recipeIng.recipe_link, ingredients:[recipeIng.ingredient_name]})
-//   }else{
-//    matchingRecipe.ingredients.push(recipeIng.ingredient_name)
-//   }
-//   return reducedFoodArray
-// },[])
+export function dynamicPageReducer(recipes) {
+  return recipes.reduce((reducedFoodArray, recipeIng) => {
+    const matchingRecipe = reducedFoodArray.find(
+      (ing) => ing.name === recipeIng.recipe_name,
+    );
+    if (!matchingRecipe && recipeIng.ingredients_types_id === 1) {
+      reducedFoodArray.push({
+        id: recipeIng.recipe_id,
+        name: recipeIng.recipe_name,
+        img: recipeIng.recipe_img,
+        link: recipeIng.recipe_link,
+        ingredients: [recipeIng.ingredient_name],
+        spices: [],
+      });
+    } else if (!matchingRecipe && recipeIng.ingredients_types_id === 2) {
+      reducedFoodArray.push({
+        id: recipeIng.recipe_id,
+        name: recipeIng.recipe_name,
+        img: recipeIng.recipe_img,
+        link: recipeIng.recipe_link,
+        ingredients: [],
+        spices: [recipeIng.ingredient_name],
+      });
+    } else if (matchingRecipe && recipeIng.ingredients_types_id === 1) {
+      matchingRecipe.ingredients.push(recipeIng.ingredient_name);
+    } else if (matchingRecipe && recipeIng.ingredients_types_id === 2) {
+      matchingRecipe.spices.push(recipeIng.ingredient_name);
+    }
+    return reducedFoodArray;
+  }, []);
+}

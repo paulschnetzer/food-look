@@ -1,4 +1,5 @@
 import postgres from 'postgres';
+import { indexReducer, dynamicPageReducer } from './helperFunctions';
 import dotenv from 'dotenv';
 import camelcaseKeys from 'camelcase-keys';
 import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku';
@@ -193,23 +194,7 @@ WHERE
   ;
     `;
 
-  return recipes.reduce((reducedFoodArray, recipeIng) => {
-    const matchingRecipe = reducedFoodArray.find(
-      (ing) => ing.name === recipeIng.recipe_name,
-    );
-    if (!matchingRecipe) {
-      reducedFoodArray.push({
-        id: recipeIng.recipe_id,
-        name: recipeIng.recipe_name,
-        image: recipeIng.recipe_img,
-        link: recipeIng.recipe_link,
-        ing: [recipeIng.ingredient_name],
-      });
-    } else {
-      matchingRecipe.ing.push(recipeIng.ingredient_name);
-    }
-    return reducedFoodArray;
-  }, []);
+  return indexReducer(recipes);
 }
 
 export async function getRecipesForProductPage() {
@@ -235,36 +220,7 @@ WHERE
   recipes_ingredients_types.ingredient_id = ingredients.id
   ;
 `;
-
-  return recipes.reduce((reducedFoodArray, recipeIng) => {
-    const matchingRecipe = reducedFoodArray.find(
-      (ing) => ing.name === recipeIng.recipe_name,
-    );
-    if (!matchingRecipe && recipeIng.ingredients_types_id === 1) {
-      reducedFoodArray.push({
-        id: recipeIng.recipe_id,
-        name: recipeIng.recipe_name,
-        img: recipeIng.recipe_img,
-        link: recipeIng.recipe_link,
-        ingredients: [recipeIng.ingredient_name],
-        spices: [],
-      });
-    } else if (!matchingRecipe && recipeIng.ingredients_types_id === 2) {
-      reducedFoodArray.push({
-        id: recipeIng.recipe_id,
-        name: recipeIng.recipe_name,
-        img: recipeIng.recipe_img,
-        link: recipeIng.recipe_link,
-        ingredients: [],
-        spices: [recipeIng.ingredient_name],
-      });
-    } else if (matchingRecipe && recipeIng.ingredients_types_id === 1) {
-      matchingRecipe.ingredients.push(recipeIng.ingredient_name);
-    } else if (matchingRecipe && recipeIng.ingredients_types_id === 2) {
-      matchingRecipe.spices.push(recipeIng.ingredient_name);
-    }
-    return reducedFoodArray;
-  }, []);
+  return dynamicPageReducer(recipes);
 }
 
 export async function deleteRecipeFromJointTable(id) {
