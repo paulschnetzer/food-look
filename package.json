@@ -20,6 +20,7 @@
     "csrf": "^3.1.0",
     "dotenv": "^8.2.0",
     "dotenv-cli": "^4.0.0",
+    "emailjs-com": "^2.6.4",
     "emotion": "^10.0.27",
     "js-cookie": "^2.2.1",
     "ley": "^0.6.0",
@@ -30,6 +31,7 @@
     "react": "17.0.1",
     "react-autosuggest": "^10.0.3",
     "react-dom": "17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-transition-group": "^4.4.1",
     "reactjs-popup": "^2.0.4",
     "saas": "^1.0.0"

@@ -17,8 +17,37 @@ const grid = css`
     margin: 20px;
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
+    .newIng {
+      border: 2px solid black;
+      padding: 10px;
+      width: 80%;
+      margin: 5px 0 5px 25px;
+      p {
+        margin: 0;
+        margin-bottom: 5px;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .isMain {
+        height: 20px;
+        width: 20px;
+        padding-right: 16px;
+        background-color: transparent;
+        border: 2px solid black;
+        margin-bottom: 10px;
+      }
+      .delete {
+      }
+      .buttonContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
     form {
       display: grid;
       place-items: center;
@@ -113,7 +142,7 @@ export default function Profile(props) {
     });
     setIngredients(deletedIngArray);
   }
-  console.log(ingredients);
+
   return (
     <div css={grid}>
       <Head>
@@ -178,13 +207,26 @@ export default function Profile(props) {
           </form>
           {ingredients.map((ing) => {
             return (
-              <p key={ing.id}>
-                <button onClick={() => handleDeleteIng(ing.id)}>Delete</button>
-                {ing.name}| isMain?
-                <button onClick={() => handleType(ing.id)}>
-                  {ing.mainIng === true ? 'X' : <p />}
-                </button>
-              </p>
+              <div className="newIng" key={ing.id}>
+                <p>{ing.name}</p>
+                <div className="buttonContainer">
+                  <div>
+                    isMain?
+                    <button
+                      className="isMain"
+                      onClick={() => handleType(ing.id)}
+                    >
+                      {ing.mainIng === true ? 'X' : <p />}
+                    </button>
+                  </div>
+                  <button
+                    className="delete"
+                    onClick={() => handleDeleteIng(ing.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             );
           })}
         </div>

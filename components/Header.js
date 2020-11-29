@@ -26,6 +26,9 @@ const header = (router) => css`
   a[href='/profile'] {
     display: ${router.pathname === '/profile' ? 'none' : 'visible'};
   }
+  a[href='/contact'] {
+    display: ${router.pathname === '/contact' ? 'none' : 'visible'};
+  }
 
   .toggleButton {
     height: 50px;
@@ -220,6 +223,11 @@ export default function Header(props) {
           <Link href="/about">
             <a className="animation" data-cy={'header-about-link'}>
               <p>ABOUT US</p>
+            </a>
+          </Link>
+          <Link href="/contact">
+            <a className="animation">
+              <p>CONTACT</p>
             </a>
           </Link>
 
