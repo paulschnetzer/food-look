@@ -265,9 +265,9 @@ export default function ProductPage(props) {
             You can use this{' '}
             {
               <Link href={food.link}>
-                <a>recepy</a>
+                <a>recipe </a>
               </Link>
-            }
+            }{' '}
             as guidance but remember, only {food.ingredients.length} ingredients
             are really necessary &#128521;{' '}
           </p>

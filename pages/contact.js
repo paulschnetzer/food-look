@@ -194,12 +194,12 @@ export default function Profile(props) {
             Do you want to be able to add Recipes? Do you want to make a
             complaint? Or do you simply want to have a quick talk about our
             service?
-            <br />
-            We at Food Look asways have an open ear for constructive Feedback or
-            new Ideas. We are reliable on our Users, theirfore we will listen to
-            what you have to say. Always putting the Users first is our Goal!
+            <br /> We at Food Look always have an open ear for constructive
+            Feedback or new Ideas. We rely on our users, therefore we will
+            listen to what you have to say. Always putting the Users first is
+            our Goal!
             <br /> So if you have anything to say just drop us a message. We
-            will come back to you as soon as possible!
+            will come back to you as soon as possible!  
           </p>
         </div>
         <div>
